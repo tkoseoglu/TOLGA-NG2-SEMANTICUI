@@ -1,0 +1,42 @@
+{
+  "name": "ng2-semantic-ui",
+  "version": "1.0.0",
+  "license": "MIT",
+  "angular-cli": {},
+  "scripts": {
+    "start": "ng serve",
+    "lint": "tslint \"src/**/*.ts\"",
+    "test": "ng test",
+    "pree2e": "webdriver-manager update",
+    "e2e": "protractor"
+  },
+  "private": false,
+  "dependencies": {
+    "@angular/common": "~2.4.8",
+    "@angular/compiler": "~2.4.8",
+    "@angular/core": "~2.4.8",
+    "@angular/forms": "~2.4.8",
+    "@angular/http": "~2.4.8",
+    "@angular/platform-browser": "~2.4.8",
+    "@angular/platform-browser-dynamic": "~2.4.8",
+    "@angular/router": "~3.4.8",
+    "core-js": "^2.4.1",
+    "moment": "^2.17.1",
+    "ng-semantic": "^1.1.13",
+    "rxjs": "5.2.0",
+    "semantic-ui": "^2.2.9",
+    "semantic-ui-calendar": "0.0.7",
+    "ts-helpers": "^1.1.1",
+    "zone.js": "^0.7.7"
+  },
+  "devDependencies": {
+    "@angular/cli": "^1.0.0-rc.1",
+    "@types/jquery": "^2.0.40",
+    "@types/node": "^7.0.5",
+    "codelyzer": "3.0.0-beta.3",
+    "ts-node": "2.1.0",
+    "tslint": "4.5.1",
+    "typescript": "~2.2.1",
+    "webdriver-manager": "12.0.2"
+  }
+}
