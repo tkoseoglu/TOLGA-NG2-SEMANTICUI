@@ -1,0 +1,122 @@
+<div class="ui fixed inverted menu">
+   <div class="ui container">
+      <a href=""
+              class="header item">
+         <img class="logo">NGSM Components
+      </a>
+   </div>
+</div>
+<div class="componentsContainer">
+   <h3 class="ui header">Components</h3>
+
+   <div>
+      <a href="ngsmLoader"
+              target="_self">Loader</a>
+   </div>
+   <div>
+      <a href="ngsmSelect"
+              target="_self">Select</a>
+   </div>
+   <div>
+      <a href="ngsmDatepicker"
+              target="_self">Datepicker</a>
+   </div>
+</div>
+<div class="contentContainer">
+
+   <div class="ui segment">
+      <h2 id="ngsmLoader">ngsm-loader</h2>
+      <form>
+         <label for="">Options</label>
+         <div class="field">
+            <div class="ui fluid input">
+               <input type="text"
+                       name="ngsmLoaderMessage"
+                       [(ngModel)]="ngsmLoaderMessage">
+            </div>
+         </div>
+         <div class="field">
+            <div class="ui checkbox">
+               <input type="checkbox"
+                       name="ngsmLoaderIsInverted"
+                       [(ngModel)]="ngsmLoaderIsInverted">
+               <label>Is Inverted</label>
+            </div>
+         </div>
+         <div>
+            <button type="button"
+                    class="ui button"
+                    (click)="toggleLoader()">Start/Stop</button>
+         </div>
+      </form>
+      <br>
+      <div style="min-height: 200px;"
+              class="ui segment">
+         <ngsm-loader [showWhen]="ngsmLoaderShow"
+                 [isInverted]="ngsmLoaderIsInverted"
+                 [message]="ngsmLoaderMessage"></ngsm-loader>
+         <p></p>
+      </div>
+      <h3>Usage</h3>
+      <div>
+         <div [innerText]="ngsmLoaderUsage"></div>
+      </div>
+   </div>
+   <div class="ui segment">
+      <h2 id="ngsmSelect">ngsm-select</h2>
+      <form>
+         <label for="">Options</label>
+         <div class="field">
+            <button type="button"
+                    class="ui button"
+                    (click)="clearSelect()">Clear</button>
+         </div>
+         <div class="field">
+            <div class="ui checkbox">
+               <input type="checkbox"
+                       name="ngsmSelectAllowAdditions"
+                       [(ngModel)]="ngsmSelectAllowAdditions">
+               <label>Allow Additions</label>
+            </div>
+         </div>
+         <div class="field">
+            <div class="ui checkbox">
+               <input type="checkbox"
+                       name="ngsmSelectIsMulti"
+                       [(ngModel)]="ngsmSelectIsMulti">
+               <label>Allow Multiple</label>
+            </div>
+         </div>
+      </form>
+      <br>
+      <form [formGroup]="ngsmSelectForm">
+         <ngsm-select [options]="ngsmOptions"
+                 [isMulti]="ngsmSelectIsMulti"
+                 [clear]="ngsmSelectClear"
+                 [allowAdditions]="ngsmSelectAllowAdditions"
+                 formControlName="countries"></ngsm-select>
+      </form>
+      <br>
+      <div>
+         {{ngsmSelectForm.value|json}}
+      </div>
+   </div>
+   <div class="ui segment">
+      <h2 id="ngsmSelect">ngsm-datepicker</h2>
+      <h3>Depends on semantic-ui-calendar</h3>
+      <form>
+         <label for="">Options</label>
+
+      </form>
+      <br>
+      <form [formGroup]="ngsmDatepickerForm">
+         <ngsm-datepicker id="myDate"
+                 formControlName="myDate"
+                 hint="Some Date"></ngsm-datepicker>
+      </form>
+      <br>
+      <div>
+         {{ngsmDatepickerForm.value|json}}
+      </div>
+   </div>
+</div>

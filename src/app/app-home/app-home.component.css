@@ -1,0 +1,32 @@
+.componentsContainer {
+    display: none;
+}
+
+.contentContainer {
+    position: absolute;
+    top: 55px;
+    min-width: 400px;
+    min-height: 400px;
+    margin-right: 5px;
+}
+
+@media (min-width: 768px) {
+    .componentsContainer {
+        display: block;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 20px;
+        padding-bottom: 5px;
+        position: fixed;
+        top: 55px;
+        bottom: 5px;
+        left: 0;
+        width: 300px;
+        overflow-y: auto;
+        box-shadow: 0px 0px 20px rgba(34, 36, 38, 0.15);
+        border: 1px solid rgba(34, 36, 38, 0.15);
+    }
+    .contentContainer {
+        left: 310px;
+    }
+}
