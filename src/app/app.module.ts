@@ -12,6 +12,8 @@ import { NgsmLoaderComponent } from './ngsm-loader/ngsm-loader.component';
 import { NgsmSelectComponent } from './ngsm-select/ngsm-select.component';
 import { NgsmDatepickerComponent } from './ngsm-datepicker/ngsm-datepicker.component';
 
+import { Ng2SimplePageScrollModule } from 'ng2-simple-page-scroll';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,9 +27,10 @@ import { NgsmDatepickerComponent } from './ngsm-datepicker/ngsm-datepicker.compo
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRouterModule
+    AppRouterModule,
+    Ng2SimplePageScrollModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent] 
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
