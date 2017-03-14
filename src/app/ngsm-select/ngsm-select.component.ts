@@ -15,10 +15,7 @@ import { Subject, Observable } from "rxjs";
   ]
 })
 export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
-
-  @Input()
-  isMulti: boolean = true;
-
+ 
   @Input()
   allowAdditions: boolean = true;
 
@@ -27,7 +24,7 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
 
   @Input()
   clear: Subject<any>;
-
+ 
   private selectedItems = [];
 
   constructor() { }
@@ -53,11 +50,11 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
       console.log("Clear ngsm-select");
       $(".search.dropdown").dropdown('clear');
       this.selectedItems = [];
-    });  
+    });
   }
 
   ngOnDestroy() {
-    this.clear.unsubscribe();    
+    this.clear.unsubscribe();
   }
 
   get value(): any {

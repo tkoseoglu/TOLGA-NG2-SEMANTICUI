@@ -11,8 +11,7 @@ import { AppHomeComponent } from './app-home/app-home.component';
 import { NgsmLoaderComponent } from './ngsm-loader/ngsm-loader.component';
 import { NgsmSelectComponent } from './ngsm-select/ngsm-select.component';
 import { NgsmDatepickerComponent } from './ngsm-datepicker/ngsm-datepicker.component';
-
-import { Ng2SimplePageScrollModule } from 'ng2-simple-page-scroll';
+import { NgsmTablepagerComponent } from './ngsm-tablepager/ngsm-tablepager.component';
 
 @NgModule({
   declarations: [
@@ -20,15 +19,15 @@ import { Ng2SimplePageScrollModule } from 'ng2-simple-page-scroll';
     AppHomeComponent,
     NgsmLoaderComponent,
     NgsmSelectComponent,
-    NgsmDatepickerComponent
+    NgsmDatepickerComponent,
+    NgsmTablepagerComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRouterModule,
-    Ng2SimplePageScrollModule.forRoot()
+    AppRouterModule    
   ],
   providers: [],
   bootstrap: [AppComponent]
