@@ -31,7 +31,7 @@ Make sure your angular-cli.json file references the semantic-ui .css and .js fil
 
 ## Import Modules
 ```shell
-import { NgsmDatepickerComponent, NgsmLoaderComponent, NgsmSelectComponent } from 'tolga-ng2-semantic-ui/src/app';
+import { NgsmDatepickerComponent,NgsmTimepickerComponent, NgsmLoaderComponent, NgsmSelectComponent } from 'tolga-ng2-semantic-ui/src/app';
 ```
 
 [Demo](http://ng2semanticui.azurewebsites.net)
