@@ -92,7 +92,6 @@ export class AppHomeComponent implements OnInit {
     this.rawUsers.push(new User("Michael", "Moore", new Date("10/11/1950")));
     this.rawUsers.push(new User("Arnold", "Schwarzenegger", new Date("10/11/1950")));
     this.rawUsers.push(new User("Sylvester", "Stallone", new Date("10/11/1950")));
-
     this.rawUsers.push(new User("Bruce", "Willis", new Date("10/11/1950")));
     this.rawUsers.push(new User("Peter", "Ustinov", new Date("10/11/1950")));
     this.rawUsers.push(new User("Clark", "Gable", new Date("10/11/1950")));
@@ -104,7 +103,6 @@ export class AppHomeComponent implements OnInit {
     this.rawUsers.push(new User("Carl", "Malone", new Date("10/11/1950")));
     this.rawUsers.push(new User("Michael", "Jordan", new Date("10/11/1950")));
     this.rawUsers.push(new User("Bruce", "Wayne", new Date("10/11/1950")));
-
     this.rawUsers.push(new User("Jackie", "Chan", new Date("10/11/1950")));
     this.rawUsers.push(new User("Patrick", "Stewart", new Date("10/11/1950")));
     this.rawUsers.push(new User("Jennifer", "Weil", new Date("10/11/1950")));
@@ -114,6 +112,59 @@ export class AppHomeComponent implements OnInit {
     this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
     this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
     this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+
+
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+
 
     this.users = Observable.from(this.rawUsers);
     this.ngsmTablepagerTotalNumberOfUsers = this.rawUsers.length;

@@ -18,7 +18,6 @@ export class NgsmTablepagerComponent implements OnChanges {
   @Input()
   selectedPage: number = 0;
 
-
   numberOfPagesDisplayed = 5;
   totalNumberOfPages: number = 0;
   pageSizes: any[] = [{
@@ -65,14 +64,15 @@ export class NgsmTablepagerComponent implements OnChanges {
   range() {
     if (this.totalNumberOfPages === 0) return;
     var start = this.selectedPage - 2;
+
+    if (start < 0)
+      start = 0;
+
     var end = start + this.numberOfPagesDisplayed;
     if (end > this.totalNumberOfPages) {
       end = this.totalNumberOfPages;
       start = end - this.numberOfPagesDisplayed;
     }
-
-    if (start < 0)
-      start = 0;
 
     if (start > end) return;
 
