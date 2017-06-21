@@ -28,6 +28,11 @@ export class AppHomeComponent implements OnInit {
   ngsmDatepickerForm: FormGroup;
   ngsmDatepickerSelectedDate = moment().format("MMMM DD, YYYY");
   ngsmDatepickerUsage: string = "<ngsm-datepicker id=\"\" formControlName=\"\" hint=\"\"></ngsm-datepicker>";
+
+  ngsmTimepickerForm: FormGroup;
+  ngsmTimepickerSelectedTime = moment().format("HH mm");
+  ngsmTimepickerUsage: string = "<ngsm-timepicker id=\"\" formControlName=\"\" hint=\"\"></ngsm-timepicker>";
+
   rawUsers: Array<User> = new Array<User>();
   users: Observable<User>;
   ngsmTablepagerUsers: Array<User> = new Array<User>();
@@ -85,6 +90,9 @@ export class AppHomeComponent implements OnInit {
     });
     this.ngsmDatepickerForm = this.formBuilder.group({
       myDate: [this.ngsmDatepickerSelectedDate]
+    });
+     this.ngsmTimepickerForm = this.formBuilder.group({
+      myTime: [this.ngsmTimepickerSelectedTime]
     });
 
     this.rawUsers.push(new User("Tom", "Jones", new Date("1/1/1970")));

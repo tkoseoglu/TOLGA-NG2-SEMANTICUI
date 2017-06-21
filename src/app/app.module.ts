@@ -12,6 +12,7 @@ import { NgsmLoaderComponent } from './ngsm-loader/ngsm-loader.component';
 import { NgsmSelectComponent } from './ngsm-select/ngsm-select.component';
 import { NgsmDatepickerComponent } from './ngsm-datepicker/ngsm-datepicker.component';
 import { NgsmTablepagerComponent } from './ngsm-tablepager/ngsm-tablepager.component';
+import { NgsmTimepickerComponent } from './ngsm-timepicker/ngsm-timepicker.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NgsmTablepagerComponent } from './ngsm-tablepager/ngsm-tablepager.compo
     NgsmLoaderComponent,
     NgsmSelectComponent,
     NgsmDatepickerComponent,
-    NgsmTablepagerComponent
+    NgsmTablepagerComponent,
+    NgsmTimepickerComponent
   ],
   imports: [
     BrowserModule,

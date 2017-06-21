@@ -1,190 +1,224 @@
 <div class="ui fixed inverted menu">
-   <div class="ui container">
-      <a href=""
-              class="header item">
-         <img class="logo">NGSM Components
-      </a>
-   </div>
+    <div class="ui container">
+        <a href=""
+            class="header item">
+            <img class="logo">NGSM Components
+        </a>
+    </div>
 </div>
 <div class="componentsContainer">
-   <h3 class="ui header">Components</h3>
-   <div class="ui relaxed divided list">
-      <div class="item">
-         <i class="large github middle aligned icon"></i>
-         <div class="content">
-            <a class="header"
+    <h3 class="ui header">Components</h3>
+    <div class="ui relaxed divided list">
+        <div class="item">
+            <i class="large github middle aligned icon"></i>
+            <div class="content">
+                <a class="header"
                     (click)="scrollTo('loader')"
                     target="_self">ngsm-loader</a>
-            <div class="description">Loading animation</div>
-         </div>
-      </div>
-      <div class="item">
-         <i class="large github middle aligned icon"></i>
-         <div class="content">
-            <a class="header"
+                <div class="description">Loading animation</div>
+            </div>
+        </div>
+        <div class="item">
+            <i class="large github middle aligned icon"></i>
+            <div class="content">
+                <a class="header"
                     (click)="scrollTo('select')"
                     target="_self">ngsm-select</a>
-            <div class="description">Dropdown element for input forms</div>
-         </div>
-      </div>
-      <div class="item">
-         <i class="large github middle aligned icon"></i>
-         <div class="content">
-            <a class="header"
+                <div class="description">Dropdown element for input forms</div>
+            </div>
+        </div>
+        <div class="item">
+            <i class="large github middle aligned icon"></i>
+            <div class="content">
+                <a class="header"
                     (click)="scrollTo('datepicker')"
                     target="_self">ngsm-datepicker</a>
-            <div class="description">Date picker control for input forms</div>
-         </div>
-      </div>
-      <div class="item">
-         <i class="large github middle aligned icon"></i>
-         <div class="content">
-            <a class="header"
+                <div class="description">Date picker control for input forms</div>
+            </div>
+        </div>
+        <div class="item">
+            <i class="large github middle aligned icon"></i>
+            <div class="content">
+                <a class="header"
+                    (click)="scrollTo('timepicker')"
+                    target="_self">ngsm-timepicker</a>
+                <div class="description">Time picker control for input forms</div>
+            </div>
+        </div>
+        <div class="item">
+            <i class="large github middle aligned icon"></i>
+            <div class="content">
+                <a class="header"
                     (click)="scrollTo('tablepager')"
                     target="_self">ngsm-tablepager</a>
-            <div class="description">Paging control for tables.</div>
-         </div>
-      </div>
-   </div>
+                <div class="description">Paging control for tables.</div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="contentContainer">
 
-   <div class="ui segment">
-      <div id="loader"
-              class="ui ribbon label red">
-         <h2>ngsm-loader</h2>
-      </div>
-      <h3>Options</h3>
-      <form>
+    <div class="ui segment">
+        <div id="loader"
+            class="ui ribbon label red">
+            <h2>ngsm-loader</h2>
+        </div>
+        <h3>Options</h3>
+        <form>
 
-         <div class="ui input">
-            <input type="text"
+            <div class="ui input">
+                <input type="text"
                     name="ngsmLoaderMessage"
                     [(ngModel)]="ngsmLoaderMessage">
-         </div>
+            </div>
 
-         <div class="ui checkbox">
-            <input type="checkbox"
+            <div class="ui checkbox">
+                <input type="checkbox"
                     name="ngsmLoaderIsInverted"
                     [(ngModel)]="ngsmLoaderIsInverted">
-            <label>Is Inverted</label>
-         </div>
+                <label>Is Inverted</label>
+            </div>
 
-         <button type="button"
-                 class="ui button"
-                 (click)="toggleLoader()">Start/Stop</button>
+            <button type="button"
+                class="ui button"
+                (click)="toggleLoader()">Start/Stop</button>
 
-      </form>
-      <div style="min-height: 200px;"
-              class="ui segment">
-         <ngsm-loader [showWhen]="ngsmLoaderShow"
-                 [isInverted]="ngsmLoaderIsInverted"
-                 [message]="ngsmLoaderMessage"></ngsm-loader>
-         <p></p>
-      </div>
-      <h3>Usage</h3>
-      <div>
-         <div [innerText]="ngsmLoaderUsage"></div>
-      </div>
-   </div>
-   <div class="ui segment">
-      <div id="select"
-              class="ui ribbon label red">
-         <h2>ngsm-select</h2>
-      </div>
-      <h3>Options</h3>
-      <form>
-         <button type="button"
-                 class="ui button"
-                 (click)="clearSelect()">Clear</button>
-         <div class="ui checkbox">
-            <input type="checkbox"
+        </form>
+        <div style="min-height: 200px;"
+            class="ui segment">
+            <ngsm-loader [showWhen]="ngsmLoaderShow"
+                [isInverted]="ngsmLoaderIsInverted"
+                [message]="ngsmLoaderMessage"></ngsm-loader>
+            <p></p>
+        </div>
+        <h3>Usage</h3>
+        <div>
+            <div [innerText]="ngsmLoaderUsage"></div>
+        </div>
+    </div>
+    <div class="ui segment">
+        <div id="select"
+            class="ui ribbon label red">
+            <h2>ngsm-select</h2>
+        </div>
+        <h3>Options</h3>
+        <form>
+            <button type="button"
+                class="ui button"
+                (click)="clearSelect()">Clear</button>
+            <div class="ui checkbox">
+                <input type="checkbox"
                     name="ngsmSelectAllowAdditions"
                     [(ngModel)]="ngsmSelectAllowAdditions">
-            <label>Allow Additions</label>
-         </div>
-         <div class="ui checkbox">
-            <input type="checkbox"
+                <label>Allow Additions</label>
+            </div>
+            <div class="ui checkbox">
+                <input type="checkbox"
                     name="ngsmSelectIsMulti"
                     [(ngModel)]="ngsmSelectIsMulti">
-            <label>Allow Multiple</label>
-         </div>
-      </form>
-      <br>
-      <form [formGroup]="ngsmSelectForm">
-         <ngsm-select [options]="ngsmOptions"
-                 [clear]="ngsmSelectClear"
-                 [allowAdditions]="ngsmSelectAllowAdditions"
-                 formControlName="countries"></ngsm-select>
-      </form>
-      <br>
-      <div>
-         {{ngsmSelectForm.value|json}}
-      </div>
-      <h3>Usage</h3>
-      <div>
-         <div [innerText]="ngsmSelectUsage"></div>
-      </div>
-   </div>
-   <div class="ui segment">
-      <div id="datepicker"
-              class="ui ribbon label red">
-         <h2>ngsm-datepicker</h2>
-      </div>
-      <h3>Depends on semantic-ui-calendar</h3>
-      <form>
-         <label for="">Options</label>
+                <label>Allow Multiple</label>
+            </div>
+        </form>
+        <br>
+        <form [formGroup]="ngsmSelectForm">
+            <ngsm-select [options]="ngsmOptions"
+                [clear]="ngsmSelectClear"
+                [allowAdditions]="ngsmSelectAllowAdditions"
+                formControlName="countries"></ngsm-select>
+        </form>
+        <br>
+        <div>
+            {{ngsmSelectForm.value|json}}
+        </div>
+        <h3>Usage</h3>
+        <div>
+            <div [innerText]="ngsmSelectUsage"></div>
+        </div>
+    </div>
+    <div class="ui segment">
+        <div id="datepicker"
+            class="ui ribbon label red">
+            <h2>ngsm-datepicker</h2>
+        </div>
+        <h3>Depends on semantic-ui-calendar</h3>
+        <form>
+            <label for="">Options</label>
 
-      </form>
-      <br>
-      <form [formGroup]="ngsmDatepickerForm">
-         <ngsm-datepicker id="myDate"
-                 formControlName="myDate"
-                 hint="Some Date"></ngsm-datepicker>
-      </form>
-      <br>
-      <div>
-         {{ngsmDatepickerForm.value|json}}
-      </div>
-      <h3>Usage</h3>
-      <div>
-         <div [innerText]="ngsmDatepickerUsage"></div>
-      </div>
-   </div>
-   <div class="ui segment">
-      <div id="tablepager"
-              class="ui ribbon label red">
-         <h2>ngsm-tablepager</h2>
-      </div>
-      <table class="ui table">
-         <thead>
-            <tr>
-               <th>First Name</th>
-               <th>Last Name</th>
-               <th>DOB</th>
-            </tr>
-         </thead>
-         <tbody>
-            <tr *ngFor="let user of ngsmTablepagerUsers">
-               <td>{{user.firstName}}</td>
-               <td>{{user.lastName}}</td>
-               <td>{{user.dob}}</td>
-            </tr>
-         </tbody>
-      </table>
-      <br>
-      <div class="ui grid">
-         <div class="right aligned column">
-            <ngsm-tablepager [totalNumberOfRecords]="ngsmTablepagerTotalNumberOfUsers"
+        </form>
+        <br>
+        <form [formGroup]="ngsmDatepickerForm">
+            <ngsm-datepicker id="myDate"
+                formControlName="myDate"
+                hint="Some Date"></ngsm-datepicker>
+        </form>
+        <br>
+        <div>
+            {{ngsmDatepickerForm.value|json}}
+        </div>
+        <h3>Usage</h3>
+        <div>
+            <div [innerText]="ngsmDatepickerUsage"></div>
+        </div>
+    </div>
+    <div class="ui segment">
+        <div id="timepicker"
+            class="ui ribbon label red">
+            <h2>ngsm-timepicker</h2>
+        </div>
+        <h3>Depends on semantic-ui-calendar</h3>
+        <form>
+            <label for="">Options</label>
+
+        </form>
+        <br>
+        <form [formGroup]="ngsmTimepickerForm">
+            <ngsm-timepicker id="myTime"
+                formControlName="myTime"
+                hint="Some Time"></ngsm-timepicker>
+        </form>
+        <br>
+        <div>
+            {{ngsmTimepickerForm.value|json}}
+        </div>
+        <h3>Usage</h3>
+        <div>
+            <div [innerText]="ngsmTimepickerUsage"></div>
+        </div>
+    </div>
+    <div class="ui segment">
+        <div id="tablepager"
+            class="ui ribbon label red">
+            <h2>ngsm-tablepager</h2>
+        </div>
+        <table class="ui table">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>DOB</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of ngsmTablepagerUsers">
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.lastName}}</td>
+                    <td>{{user.dob}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <div class="ui grid">
+            <div class="right aligned column">
+                <ngsm-tablepager [totalNumberOfRecords]="ngsmTablepagerTotalNumberOfUsers"
                     [selectedPageSize]="ngsmTablepagerConfig.pageSize"
                     [selectedPage]="ngsmTablepagerConfig.page"
                     (onPageSizeChange)="newPageSize($event)"
                     (onPageChange)="newPage($event)"></ngsm-tablepager>
-         </div>
-      </div>
-      <h3>Usage</h3>
-      <div>
-         <div [innerText]="ngsmTablepagerUsage"></div>
-      </div>
-   </div>
+            </div>
+        </div>
+        <h3>Usage</h3>
+        <div>
+            <div [innerText]="ngsmTablepagerUsage"></div>
+        </div>
+    </div>
 </div>

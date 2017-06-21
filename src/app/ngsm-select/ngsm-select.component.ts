@@ -33,7 +33,7 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
 
     console.log(`Allow Additions ${this.allowAdditions}`);
 
-    $('.search.dropdown').dropdown({
+    (<any>$('.search.dropdown')).dropdown({
       allowAdditions: this.allowAdditions,
       direction: 'downward',
       label: {
@@ -48,7 +48,7 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
 
     this.clear.subscribe(event => {
       console.log("Clear ngsm-select");
-      $(".search.dropdown").dropdown('clear');
+      (<any>$(".search.dropdown")).dropdown('clear');
       this.selectedItems = [];
     });
   }
@@ -65,7 +65,7 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
     if (value !== undefined) {
       this.selectedItems = value;
       setTimeout(function () {
-        $('.search.dropdown').dropdown('set selected', this.selectedItems)
+        (<any>$('.search.dropdown')).dropdown('set selected', this.selectedItems)
       }, 250);
     }
   }
