@@ -25,6 +25,15 @@ export class AppHomeComponent implements OnInit {
   ngsmOptions = ["Germany", "England", "United States", "Canada", "Span", "Italy", "Mexico", "Turkey", "Japan", "China"];
   ngsmSelectUsage: string = " <ngsm-select [options]=\"\" [clear]=\"\" [allowAdditions]=\"\" formControlName=\"\"></ngsm-select>";
 
+  ngsmAutocompleteForm: FormGroup;
+  ngsmAutocompleteUsage: string = " <ngsm-autocomplete id=\"\" formControlName=\"\" url=\"\" currentItem=\"\"></ngsm-autocomplete>";
+  myAutocomplete: string = "staffAutocomplete";
+  ngsmAutocompleteUrl: string = "http://localhost:50198/api/util/autocompleteStaff";
+  currentStaff: any = {
+    value: 305,
+    name: "Tolga Koseoglu"
+  };  
+
   ngsmDatepickerForm: FormGroup;
   ngsmDatepickerSelectedDate = moment().format("MMMM DD, YYYY");
   ngsmDatepickerUsage: string = "<ngsm-datepicker id=\"\" formControlName=\"\" hint=\"\"></ngsm-datepicker>";
@@ -83,18 +92,7 @@ export class AppHomeComponent implements OnInit {
     }, 500);
   }
 
-  ngOnInit() {
-
-    this.ngsmSelectForm = this.formBuilder.group({
-      countries: [this.ngsmSelectedCountries]
-    });
-    this.ngsmDatepickerForm = this.formBuilder.group({
-      myDate: [this.ngsmDatepickerSelectedDate]
-    });
-     this.ngsmTimepickerForm = this.formBuilder.group({
-      myTime: [this.ngsmTimepickerSelectedTime]
-    });
-
+  private seedTablePager() {
     this.rawUsers.push(new User("Tom", "Jones", new Date("1/1/1970")));
     this.rawUsers.push(new User("Peter", "Fonda", new Date("10/11/1950")));
     this.rawUsers.push(new User("Michael", "Moore", new Date("10/11/1950")));
@@ -106,77 +104,93 @@ export class AppHomeComponent implements OnInit {
     this.rawUsers.push(new User("Boris", "Becker", new Date("10/11/1950")));
     this.rawUsers.push(new User("Ivan", "Lendle", new Date("10/11/1950")));
 
-    this.rawUsers.push(new User("Juergen", "Schult", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Lars", "Riedel", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Carl", "Malone", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Michael", "Jordan", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Bruce", "Wayne", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Jackie", "Chan", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Patrick", "Stewart", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Jennifer", "Weil", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Alejandro", "Martinez", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Bill", "Schmill", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Juergen", "Schult", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lars", "Riedel", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Carl", "Malone", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Michael", "Jordan", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Bruce", "Wayne", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Jackie", "Chan", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Patrick", "Stewart", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Jennifer", "Weil", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Alejandro", "Martinez", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Bill", "Schmill", new Date("10/11/1950")));
 
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
 
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
 
 
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
 
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
 
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
-    this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
-
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Jeff", "Morgan", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Lala", "Jackson", new Date("10/11/1950")));
+    // this.rawUsers.push(new User("Kayla", "Smith", new Date("10/11/1950")));
 
     this.users = Observable.from(this.rawUsers);
     this.ngsmTablepagerTotalNumberOfUsers = this.rawUsers.length;
+  }
 
+  ngOnInit() {
+
+    this.ngsmSelectForm = this.formBuilder.group({
+      countries: [this.ngsmSelectedCountries]
+    });
+    this.ngsmAutocompleteForm = this.formBuilder.group({
+      selectedStaffId: [this.currentStaff.value]
+    });
+    this.ngsmDatepickerForm = this.formBuilder.group({
+      myDate: [this.ngsmDatepickerSelectedDate]
+    });
+    this.ngsmTimepickerForm = this.formBuilder.group({
+      myTime: [this.ngsmTimepickerSelectedTime]
+    });
+
+    this.seedTablePager();
     this.getUsers();
 
   }

@@ -1,36 +1,36 @@
 <div class="ui right floated pagination menu">
-   <a class="icon item"
-           *ngIf="selectedPage > 0"
-           (click)="setPage(0)">
-      <i class="angle double left icon"></i>
-   </a>
-   <a class="icon item"
-           *ngIf="selectedPage > 0"
-           (click)="setPage(selectedPage - 1)">
-      <i class="angle left icon"></i>
-   </a>
-   <a class="item"
-           *ngFor="let r of range()"
-           [ngClass]="{active: selectedPage === r}"
-           (click)="setPage(r)">
+    <a class="icon item"
+        *ngIf="selectedPage > 0"
+        (click)="setPage(0)">
+        <i class="angle double left icon"></i>
+    </a>
+    <a class="icon item"
+        *ngIf="selectedPage > 0"
+        (click)="setPage(selectedPage - 1)">
+        <i class="angle left icon"></i>
+    </a>
+    <a class="item"
+        *ngFor="let r of range()"
+        [ngClass]="{active: selectedPage === r}"
+        (click)="setPage(r)">
       {{r+1}}
    </a>
-   <a class="icon item"
-           *ngIf="selectedPage < (totalNumberOfPages-1)"
-           (click)="setPage(selectedPage + 1)">
-      <i class="angle right icon"></i>
-   </a>
-   <a class="icon item"
-           *ngIf="selectedPage < (totalNumberOfPages-1)"
-           (click)="setPage(totalNumberOfPages-1)">
-      <i class="angle double right icon"></i>
-   </a>
-   <select [(ngModel)]="selectedPageSize"
-           (ngModelChange)="setPageSize($event)"
-           placeholder="Transactions per Page"
-           *ngIf="totalNumberOfRecords>0"
-           class="ui fluid dropdown"
-           style="border:1px solid white;">
+    <a class="icon item"
+        *ngIf="selectedPage < (totalNumberOfPages-1)"
+        (click)="setPage(selectedPage + 1)">
+        <i class="angle right icon"></i>
+    </a>
+    <a class="icon item"
+        *ngIf="selectedPage < (totalNumberOfPages-1)"
+        (click)="setPage(totalNumberOfPages-1)">
+        <i class="angle double right icon"></i>
+    </a>
+    <select [(ngModel)]="selectedPageSize"
+        (ngModelChange)="setPageSize($event)"
+        placeholder="Transactions per Page"
+        *ngIf="totalNumberOfRecords>0"
+        class="ui fluid dropdown"
+        style="border:1px solid white;">
       <option *ngFor="let pageSize of pageSizes"
               [value]="pageSize.value">{{pageSize.title}}</option>
    </select>

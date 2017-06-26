@@ -1,6 +1,9 @@
-<select [(ngModel)]="selectedItems"
-        multiple=""
-        class="ui fluid search dropdown">
+<pre>{{id}}</pre>
+<pre>{{selectedItems}}</pre>
+<select id="{{id}}"
+    [(ngModel)]="selectedItems"
+    multiple=""
+    class="ui fluid search dropdown">
    <option *ngFor="let option of options"
            [value]="option">{{option}}</option>
 </select>

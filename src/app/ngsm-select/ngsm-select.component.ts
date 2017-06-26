@@ -15,7 +15,10 @@ import { Subject, Observable } from "rxjs";
   ]
 })
 export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
- 
+
+  @Input()
+  id: string;
+
   @Input()
   allowAdditions: boolean = true;
 
@@ -24,16 +27,17 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
 
   @Input()
   clear: Subject<any>;
- 
+
   private selectedItems = [];
+
+  private myInterval: any;
+  private clearInterval: any;
 
   constructor() { }
 
-  ngOnInit() {
+  init() {
 
-    console.log(`Allow Additions ${this.allowAdditions}`);
-
-    (<any>$('.search.dropdown')).dropdown({
+    (<any>$(`#${this.id}.search.dropdown`)).dropdown({
       allowAdditions: this.allowAdditions,
       direction: 'downward',
       label: {
@@ -46,11 +50,25 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
       }, this)
     });
 
+
     this.clear.subscribe(event => {
-      console.log("Clear ngsm-select");
-      (<any>$(".search.dropdown")).dropdown('clear');
-      this.selectedItems = [];
+      console.log("Select: Clear Request");
+      this.clearInterval = Observable.interval(1000).subscribe(() => this.empty());
     });
+
+    this.myInterval.unsubscribe();
+
+  }
+
+  empty() {
+    this.selectedItems = [];
+    (<any>$(`#${this.id}.search.dropdown`)).dropdown('clear');    
+    this.clearInterval.unsubscribe();
+  }
+
+  ngOnInit() {
+    console.log(`Select: id: ${this.id}, allowAdditions: ${this.allowAdditions}, options: ${this.options}`);
+    this.myInterval = Observable.interval(100).subscribe(() => this.init());
   }
 
   ngOnDestroy() {
@@ -64,8 +82,9 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
   writeValue(value: any) {
     if (value !== undefined) {
       this.selectedItems = value;
+      console.log(`Select: selectedItems: ${this.selectedItems}`);
       setTimeout(function () {
-        (<any>$('.search.dropdown')).dropdown('set selected', this.selectedItems)
+        (<any>$(`#${this.id}.search.dropdown`)).dropdown('set selected', this.selectedItems);
       }, 250);
     }
   }

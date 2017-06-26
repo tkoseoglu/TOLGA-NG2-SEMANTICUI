@@ -62,7 +62,7 @@ export class NgsmTablepagerComponent implements OnChanges {
   }
 
   range() {
-    if (this.totalNumberOfPages === 0) return;
+    if (this.totalNumberOfPages === 0 || this.totalNumberOfPages === 1) return;
     var start = this.selectedPage - 2;
 
     if (start < 0)
@@ -73,6 +73,9 @@ export class NgsmTablepagerComponent implements OnChanges {
       end = this.totalNumberOfPages;
       start = end - this.numberOfPagesDisplayed;
     }
+
+    if (start < 0)
+      start = 0;
 
     if (start > end) return;
 
