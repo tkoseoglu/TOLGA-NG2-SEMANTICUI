@@ -19,10 +19,10 @@ export class AppHomeComponent implements OnInit {
 
   ngsmSelectForm: FormGroup;
   ngsmSelectClear: Subject<any> = new Subject();
-  ngsmSelectedCountries = ["Germany", "England"];
+  ngsmSelectedCountries = [];
   ngsmSelectAllowAdditions: boolean = true;
   ngsmSelectIsMulti: boolean = true;
-  ngsmOptions = ["Germany", "England", "United States", "Canada", "Span", "Italy", "Mexico", "Turkey", "Japan", "China"];
+  ngsmOptions = ["Germany", "England", "United States", "Canada", "Spain", "Italy", "Mexico", "Turkey", "Japan", "China"];
   ngsmSelectUsage: string = " <ngsm-select [options]=\"\" [clear]=\"\" [allowAdditions]=\"\" formControlName=\"\"></ngsm-select>";
 
   ngsmAutocompleteForm: FormGroup;
@@ -32,7 +32,7 @@ export class AppHomeComponent implements OnInit {
   currentStaff: any = {
     value: 305,
     name: "Tolga Koseoglu"
-  };  
+  };
 
   ngsmDatepickerForm: FormGroup;
   ngsmDatepickerSelectedDate = moment().format("MMMM DD, YYYY");
@@ -51,6 +51,9 @@ export class AppHomeComponent implements OnInit {
     pageSize: 10
   };
   ngsmTablepagerUsage: string = "<ngsm-tablepager [totalNumberOfRecords]=\"\" [selectedPageSize]=\"\" [selectedPage]=\"\" (onPageSizeChange)=\"\" (onPageChange)=\"\"></ngsm-tablepager>";
+
+
+  private mockInterval: any;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -175,6 +178,14 @@ export class AppHomeComponent implements OnInit {
     this.ngsmTablepagerTotalNumberOfUsers = this.rawUsers.length;
   }
 
+  mockApiRequest() {
+    console.log("Mock interval");
+    this.ngsmSelectedCountries = ["Germany", "England"];
+    this.ngsmSelectForm.controls["countries"].setValue(this.ngsmSelectedCountries);
+
+    this.mockInterval.unsubscribe();
+  }
+
   ngOnInit() {
 
     this.ngsmSelectForm = this.formBuilder.group({
@@ -189,6 +200,8 @@ export class AppHomeComponent implements OnInit {
     this.ngsmTimepickerForm = this.formBuilder.group({
       myTime: [this.ngsmTimepickerSelectedTime]
     });
+
+    this.mockInterval = Observable.interval(100).subscribe(() => this.mockApiRequest());
 
     this.seedTablePager();
     this.getUsers();
