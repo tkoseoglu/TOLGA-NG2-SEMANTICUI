@@ -1,5 +1,5 @@
 <div id="{{id}}"
-    class="ui multiple selection search dropdown">
+    class="ui multiple selection fluid search dropdown">
     <input name="myMultiSelect"
         type="hidden"
         [value]="selectedItems">
@@ -11,8 +11,3 @@
             [attr.data-value]="item.value">{{item.name}}</div>
     </div>
 </div>
-
-<!-- Previously selected -->
-<!-- <div *ngFor="let prevItem of previousSelectedItems">
-    {{prevItem.name}}
-</div> -->

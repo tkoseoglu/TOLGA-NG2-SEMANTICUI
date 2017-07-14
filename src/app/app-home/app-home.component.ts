@@ -20,7 +20,7 @@ export class AppHomeComponent implements OnInit {
   //Multi-Select
   ngsmSelectForm: FormGroup;
   ngsmMultiselectSelectedItems = [];
-  ngsmMultiselectUrl: string = "http://localhost:50198/api/util/autocompleteStaff";
+  ngsmMultiselectUrl: string = "http://localhost:50198/api/util/autocompleteKeyword";
   ngsmSelectUsage: string = "<ngsm-select id=\"\" formControlName=\"\" url=\"\" selectedItems=\"\" defaultText=\"\"></ngsm-select>";
 
   //Autocomplete
@@ -179,21 +179,18 @@ export class AppHomeComponent implements OnInit {
     console.log("Mock interval");
 
     this.ngsmMultiselectSelectedItems = [{
-      value: 305,
-      name: "Tolga Koseoglu"
+      value: 9425,
+      name: "demo apply tv ipad"
     }, {
-      value: 43,
-      name: "Muhammad Bajwa"
-    }, {
-      value: 223,
-      name: "Felicia Herrick"
+      value: 11980,
+      name: "Server"
     }];
 
-    let selectedStaffIds = this.ngsmMultiselectSelectedItems.map(function (a) {
+    let selectedIds = this.ngsmMultiselectSelectedItems.map(function (a) {
       return a.value;
     });
 
-    this.ngsmSelectForm.controls["selectedStaffIds"].setValue(selectedStaffIds);
+    this.ngsmSelectForm.controls["selectedStaffIds"].setValue(selectedIds);
 
     this.currentStaff = {
       value: 305,

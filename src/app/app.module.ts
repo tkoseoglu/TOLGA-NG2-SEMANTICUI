@@ -15,6 +15,8 @@ import { NgsmTablepagerComponent } from './ngsm-tablepager/ngsm-tablepager.compo
 import { NgsmTimepickerComponent } from './ngsm-timepicker/ngsm-timepicker.component';
 import { NgsmAutocompleteComponent } from './ngsm-autocomplete/ngsm-autocomplete.component';
 
+import { AppService } from './app.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +35,7 @@ import { NgsmAutocompleteComponent } from './ngsm-autocomplete/ngsm-autocomplete
     HttpModule,
     AppRouterModule    
   ],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

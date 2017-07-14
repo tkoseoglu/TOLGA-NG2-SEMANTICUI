@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { Subject, Observable } from "rxjs";
+import { AppService } from "../app.service";
 
 @Component({
   selector: 'ngsm-autocomplete',
@@ -24,22 +25,22 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
 
   @Input()
   url: string;
-  
+
   private selectedItem: any;
   private myInterval: any;
 
-  constructor() { }
+  constructor(private appService: AppService) { }
 
   init() {
     (<any>$(`#${this.id}.search.dropdown`)).dropdown({
-      minCharacters: 2,      
+      minCharacters: 2,
       onChange: jQuery.proxy(function (value, text, $selectedItem) {
-        console.log(`Autocomplete selected item: ${value}, ${text}`);
+        this.appService.log("ngsm-autocomplete", `${value}, ${text}`);
         this.propagateChange(value);
       }, this),
       apiSettings: {
         url: `${this.url}/{query}`,
-        method: 'get',        
+        method: 'get',
         onResponse: function (results) {
           var response = {
             success: true,
@@ -51,16 +52,17 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
               name: item.fullName
             });
           });
-          console.log(response);
+          this.appService.log("ngsm-autocomplete", response);
           return response;
         }
       }
     });
     this.myInterval.unsubscribe();
+    sessionStorage.clear();
   }
 
-  ngOnInit() {
-    console.log(`Autocomplete: id: ${this.id}, url: ${this.url}`);
+  ngOnInit() {    
+    this.appService.log("ngsm-autocomplete", `id: ${this.id}, url: ${this.url}`);
     this.myInterval = Observable.interval(100).subscribe(() => this.init());
   }
 

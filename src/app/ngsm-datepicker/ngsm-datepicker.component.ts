@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { AppService } from "../app.service";
 
 @Component({
   selector: 'ngsm-datepicker',
@@ -23,13 +24,13 @@ export class NgsmDatepickerComponent implements OnInit, ControlValueAccessor {
 
   private innerValue: string;
 
-  constructor() { }
+  constructor(private appService: AppService) { }
 
   ngOnInit() {
     (<any>$('#' + this.id)).calendar({
       type: 'date',
       onChange: jQuery.proxy(function (value) {
-        console.log("date changed %s", value);
+        this.appService.log("ngsm-datepicker", value);  
         this.propagateChange(value);
       }, this)
     });
