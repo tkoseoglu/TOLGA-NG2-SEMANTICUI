@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { Subject, Observable } from "rxjs";
-import { AppService } from "../app.service";
+import { NgsmAppService } from "../ngsm.app.service";
 @Component({
   selector: 'ngsm-select',
   templateUrl: './ngsm-select.component.html',
@@ -33,15 +33,14 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
   private selectedItems: any = [];
   private isInitiating: boolean = false;
 
-  constructor(private appService: AppService) { }
+  constructor(private ngsmAppService: NgsmAppService) { }
 
   init() {
-    this.appService.log("ngsm-select","init");
+    this.ngsmAppService.log("ngsm-select","init");
     (<any>$(`#${this.id}.search.dropdown`)).dropdown({
       minCharacters: 1,
       allowAdditions: true,
-      onChange: jQuery.proxy(function (value, text, $selectedItem) {
-        console.log(`Multiselect selected items: ${value}, ${text}`);
+      onChange: jQuery.proxy(function (value, text, $selectedItem) {       
         this.propagateChange(value);
       }, this),
       apiSettings: {
@@ -58,8 +57,7 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
               value: item.value,
               name: item.name
             });
-          });
-          this.appService.log(response);
+          });          
           return response;
         }
       }
@@ -73,7 +71,7 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
   }
 
   ngOnInit() {
-    this.appService.log("ngsm-select", `id: ${this.id}, url: ${this.url}`);
+    this.ngsmAppService.log("ngsm-select", `id: ${this.id}, url: ${this.url}`);
     this.initInterval = Observable.interval(10).subscribe(() => this.init());
     this.isInitiating = true;
   }
@@ -85,9 +83,9 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
   writeValue(value: any) {
     if (value !== undefined && value !== null) {
       this.selectedItems = value;
-      this.appService.log("ngsm-select",`SelectedItems ${this.selectedItems}`);
+      this.ngsmAppService.log("ngsm-select",`SelectedItems ${this.selectedItems}`);
       if (!this.isInitiating) {
-        this.changesInterval = Observable.interval(1000).subscribe(() => this.init());
+        this.changesInterval = Observable.interval(100).subscribe(() => this.init());
         this.isInitiating = true;
       }
     }

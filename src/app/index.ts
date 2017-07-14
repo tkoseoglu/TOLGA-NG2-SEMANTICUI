@@ -4,5 +4,6 @@ export * from './ngsm-datepicker/ngsm-datepicker.component';
 export * from './ngsm-timepicker/ngsm-timepicker.component';
 export * from './ngsm-tablepager/ngsm-tablepager.component';
 export * from './ngsm-autocomplete/ngsm-autocomplete.component';
+export * from './ngsm.app.service';
 export * from './app.component';
 export * from './app.module';

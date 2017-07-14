@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { AppService } from "../app.service";
+import { NgsmAppService } from "../ngsm.app.service";
 @Component({
   selector: 'ngsm-timepicker',
   templateUrl: './ngsm-timepicker.component.html',
@@ -23,13 +23,13 @@ export class NgsmTimepickerComponent implements OnInit, ControlValueAccessor {
 
   private innerValue: string;
 
-  constructor(private appService: AppService) { }
+  constructor(private ngsmAppService: NgsmAppService) { }
 
   ngOnInit() {
     (<any>$('#' + this.id)).calendar({
       type: 'time',
       onChange: jQuery.proxy(function (value) {
-        this.appService.log("ngsm-timepicker", value);        
+        this.ngsmAppService.log("ngsm-timepicker", value);
         this.propagateChange(value);
       }, this)
     });
