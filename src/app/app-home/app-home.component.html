@@ -112,33 +112,19 @@
         </div>
         <h3>Options</h3>
         <form>
-            <button type="button"
-                class="ui button"
-                (click)="clearSelect()">Clear</button>
-            <div class="ui checkbox">
-                <input type="checkbox"
-                    name="ngsmSelectAllowAdditions"
-                    [(ngModel)]="ngsmSelectAllowAdditions">
-                <label>Allow Additions</label>
-            </div>
-            <div class="ui checkbox">
-                <input type="checkbox"
-                    name="ngsmSelectIsMulti"
-                    [(ngModel)]="ngsmSelectIsMulti">
-                <label>Allow Multiple</label>
-            </div>
+
         </form>
         <br>
         <form [formGroup]="ngsmSelectForm">
             <ngsm-select id="mySelect"
-                [options]="ngsmOptions"
-                [clear]="ngsmSelectClear"
-                [allowAdditions]="ngsmSelectAllowAdditions"
-                formControlName="countries"></ngsm-select>
+                [url]="ngsmMultiselectUrl"
+                defaultText="Some text..."
+                [previousSelectedItems]="ngsmMultiselectSelectedItems"
+                formControlName="selectedStaffIds"></ngsm-select>
         </form>
         <br>
         <div>
-            {{ngsmSelectForm.value|json}}
+            Form Value: {{ngsmSelectForm.value|json}}
         </div>
         <h3>Usage</h3>
         <div>
@@ -155,7 +141,7 @@
         <form [formGroup]="ngsmAutocompleteForm">
             <ngsm-autocomplete id="myAutocomplete"
                 formControlName="selectedStaffId"
-                [defaultText]="currentStaff.name"
+                [defaultText]="currentStaffName"
                 [url]="ngsmAutocompleteUrl"></ngsm-autocomplete>
         </form>
         <br>

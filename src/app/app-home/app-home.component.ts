@@ -17,31 +17,31 @@ export class AppHomeComponent implements OnInit {
   ngsmLoaderMessage: string = "My Loading Message...";
   ngsmLoaderUsage: string = "<ngsm-loader [showWhen]=\"\" [isInverted]=\"\" [message]=\"\"></ngsm-loader>";
 
+  //Multi-Select
   ngsmSelectForm: FormGroup;
-  ngsmSelectClear: Subject<any> = new Subject();
-  ngsmSelectedCountries = [];
-  ngsmSelectAllowAdditions: boolean = true;
-  ngsmSelectIsMulti: boolean = true;
-  ngsmOptions = ["Germany", "England", "United States", "Canada", "Spain", "Italy", "Mexico", "Turkey", "Japan", "China"];
-  ngsmSelectUsage: string = " <ngsm-select [options]=\"\" [clear]=\"\" [allowAdditions]=\"\" formControlName=\"\"></ngsm-select>";
+  ngsmMultiselectSelectedItems = [];
+  ngsmMultiselectUrl: string = "http://localhost:50198/api/util/autocompleteStaff";
+  ngsmSelectUsage: string = "<ngsm-select id=\"\" formControlName=\"\" url=\"\" selectedItems=\"\" defaultText=\"\"></ngsm-select>";
 
+  //Autocomplete
   ngsmAutocompleteForm: FormGroup;
-  ngsmAutocompleteUsage: string = " <ngsm-autocomplete id=\"\" formControlName=\"\" url=\"\" currentItem=\"\"></ngsm-autocomplete>";
+  ngsmAutocompleteUsage: string = " <ngsm-autocomplete id=\"\" formControlName=\"\" url=\"\" defaultText=\"\"></ngsm-autocomplete>";
   myAutocomplete: string = "staffAutocomplete";
   ngsmAutocompleteUrl: string = "http://localhost:50198/api/util/autocompleteStaff";
-  currentStaff: any = {
-    value: 305,
-    name: "Tolga Koseoglu"
-  };
+  currentStaff: any;
+  currentStaffName: string = "";
 
+  //Datepicker
   ngsmDatepickerForm: FormGroup;
   ngsmDatepickerSelectedDate = moment().format("MMMM DD, YYYY");
   ngsmDatepickerUsage: string = "<ngsm-datepicker id=\"\" formControlName=\"\" hint=\"\"></ngsm-datepicker>";
 
+  //Timepicker
   ngsmTimepickerForm: FormGroup;
   ngsmTimepickerSelectedTime = moment().format("HH mm");
   ngsmTimepickerUsage: string = "<ngsm-timepicker id=\"\" formControlName=\"\" hint=\"\"></ngsm-timepicker>";
 
+  //Tablepager
   rawUsers: Array<User> = new Array<User>();
   users: Observable<User>;
   ngsmTablepagerUsers: Array<User> = new Array<User>();
@@ -54,6 +54,7 @@ export class AppHomeComponent implements OnInit {
 
 
   private mockInterval: any;
+  private mockInterval2: any;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -61,10 +62,6 @@ export class AppHomeComponent implements OnInit {
 
   toggleLoader() {
     this.ngsmLoaderShow = !this.ngsmLoaderShow;
-  }
-
-  clearSelect() {
-    this.ngsmSelectClear.next(true);
   }
 
   getUsers() {
@@ -180,19 +177,42 @@ export class AppHomeComponent implements OnInit {
 
   mockApiRequest() {
     console.log("Mock interval");
-    this.ngsmSelectedCountries = ["Germany", "England"];
-    this.ngsmSelectForm.controls["countries"].setValue(this.ngsmSelectedCountries);
+
+    this.ngsmMultiselectSelectedItems = [{
+      value: 305,
+      name: "Tolga Koseoglu"
+    }, {
+      value: 43,
+      name: "Muhammad Bajwa"
+    }, {
+      value: 223,
+      name: "Felicia Herrick"
+    }];
+
+    let selectedStaffIds = this.ngsmMultiselectSelectedItems.map(function (a) {
+      return a.value;
+    });
+
+    this.ngsmSelectForm.controls["selectedStaffIds"].setValue(selectedStaffIds);
+
+    this.currentStaff = {
+      value: 305,
+      name: "Tolga Koseoglu"
+    };
+    this.currentStaffName = "Tolga K.";
+    this.ngsmAutocompleteForm.controls["selectedStaffId"].setValue(this.currentStaff.value);
 
     this.mockInterval.unsubscribe();
   }
 
+
   ngOnInit() {
 
     this.ngsmSelectForm = this.formBuilder.group({
-      countries: [this.ngsmSelectedCountries]
+      selectedStaffIds: []
     });
     this.ngsmAutocompleteForm = this.formBuilder.group({
-      selectedStaffId: [this.currentStaff.value]
+      selectedStaffId: []
     });
     this.ngsmDatepickerForm = this.formBuilder.group({
       myDate: [this.ngsmDatepickerSelectedDate]
@@ -201,7 +221,7 @@ export class AppHomeComponent implements OnInit {
       myTime: [this.ngsmTimepickerSelectedTime]
     });
 
-    this.mockInterval = Observable.interval(100).subscribe(() => this.mockApiRequest());
+    this.mockInterval = Observable.interval(2000).subscribe(() => this.mockApiRequest());
 
     this.seedTablePager();
     this.getUsers();

@@ -20,59 +20,51 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
   id: string;
 
   @Input()
-  allowAdditions: boolean = true;
+  url: string;
 
   @Input()
-  options = [];
+  defaultText: string;
 
   @Input()
-  clear: Subject<any>;
-
-  private selectedItems = [];
+  previousSelectedItems: any = [];
 
   private myInterval: any;
-  private clearInterval: any;
-
+  private selectedItems: any = [];
+  
   constructor() { }
 
   init() {
-
     (<any>$(`#${this.id}.search.dropdown`)).dropdown({
-      allowAdditions: this.allowAdditions,
-      direction: 'downward',
-      label: {
-        transition: 'horizontal flip',
-        duration: 200,
-        variation: false
-      },
+      minCharacters: 2,
       onChange: jQuery.proxy(function (value, text, $selectedItem) {
-        this.propagateChange(this.selectedItems);
-      }, this)
+        console.log(`Multiselect selected items: ${value}, ${text}`);
+        this.propagateChange(value);
+      }, this),
+      apiSettings: {
+        url: `${this.url}/{query}`,
+        method: 'get',
+        onResponse: function (results) {
+          var response = {
+            success: true,
+            results: []
+          };
+          $.each(results, function (index, item) {
+            response.results.push({
+              value: item.id,
+              name: item.fullName
+            });
+          });
+          console.log(response);
+          return response;
+        }
+      }
     });
-
-
-    this.clear.subscribe(event => {
-      console.log("Select: Clear Request");
-      this.clearInterval = Observable.interval(1000).subscribe(() => this.empty());
-    });
-
     this.myInterval.unsubscribe();
-
-  }
-
-  empty() {
-    this.selectedItems = [];
-    (<any>$(`#${this.id}.search.dropdown`)).dropdown('clear');    
-    this.clearInterval.unsubscribe();
   }
 
   ngOnInit() {
-    console.log(`Select: id: ${this.id}, allowAdditions: ${this.allowAdditions}, options: ${this.options}`);
+    console.log(`Multiselect: id: ${this.id}, url: ${this.url}`);
     this.myInterval = Observable.interval(100).subscribe(() => this.init());
-  }
-
-  ngOnDestroy() {
-    this.clear.unsubscribe();
   }
 
   get value(): any {
@@ -80,12 +72,10 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
   };
 
   writeValue(value: any) {
-    if (value !== undefined) {
+    if (value !== undefined && value !== null) {
       this.selectedItems = value;
-      console.log(`Select: selectedItems: ${this.selectedItems}`);
-      setTimeout(function () {
-        (<any>$(`#${this.id}.search.dropdown`)).dropdown('set selected', this.selectedItems);
-      }, 250);
+      console.log(`Multiselect: selectedItems ${this.selectedItems}`);      
+      this.myInterval = Observable.interval(100).subscribe(() => this.init());
     }
   }
 
@@ -96,5 +86,4 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
   registerOnChange(fn) {
     this.propagateChange = fn;
   }
-
 }

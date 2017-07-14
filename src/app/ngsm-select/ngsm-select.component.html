@@ -1,7 +1,18 @@
-<select id="{{id}}"
-    [(ngModel)]="selectedItems"
-    multiple=""
-    class="ui fluid search dropdown">
-   <option *ngFor="let option of options"
-           [value]="option">{{option}}</option>
-</select>
+<div id="{{id}}"
+    class="ui multiple selection search dropdown">
+    <input name="myMultiSelect"
+        type="hidden"
+        [value]="selectedItems">
+    <i class="dropdown icon"></i>
+    <div class="default text">{{defaultText}}</div>
+    <div class="menu">
+        <div class="item"
+            *ngFor="let item of previousSelectedItems"
+            [attr.data-value]="item.value">{{item.name}}</div>
+    </div>
+</div>
+
+<!-- Previously selected -->
+<!-- <div *ngFor="let prevItem of previousSelectedItems">
+    {{prevItem.name}}
+</div> -->

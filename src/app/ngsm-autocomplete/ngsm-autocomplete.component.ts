@@ -24,7 +24,7 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
 
   @Input()
   url: string;
-
+  
   private selectedItem: any;
   private myInterval: any;
 
@@ -32,14 +32,14 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
 
   init() {
     (<any>$(`#${this.id}.search.dropdown`)).dropdown({
-      minCharacters: 2,
+      minCharacters: 2,      
       onChange: jQuery.proxy(function (value, text, $selectedItem) {
         console.log(`Autocomplete selected item: ${value}, ${text}`);
         this.propagateChange(value);
       }, this),
       apiSettings: {
         url: `${this.url}/{query}`,
-        method: 'get',
+        method: 'get',        
         onResponse: function (results) {
           var response = {
             success: true,
