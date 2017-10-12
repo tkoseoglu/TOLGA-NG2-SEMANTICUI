@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, forwardRef, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { Subject, Observable } from "rxjs";
 import { NgsmAppService } from "../ngsm.app.service";
@@ -28,6 +28,12 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
   @Input()
   previousSelectedItems: any = [];
 
+  @Input()
+  allowAdditions: boolean = false;
+
+  @Output()
+  selectedItem: EventEmitter<any> = new EventEmitter<any>();
+
   private initInterval: any;
   private changesInterval: any;
   private selectedItems: any = [];
@@ -36,12 +42,15 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
   constructor(private ngsmAppService: NgsmAppService) { }
 
   init() {
-    this.ngsmAppService.log("ngsm-select","init");
+    this.ngsmAppService.log("ngsm-select", "init");
     (<any>$(`#${this.id}.search.dropdown`)).dropdown({
       minCharacters: 1,
-      allowAdditions: true,
-      onChange: jQuery.proxy(function (value, text, $selectedItem) {       
+      allowAdditions: this.allowAdditions,
+      onChange: jQuery.proxy(function (value, text, $selectedItem) {
         this.propagateChange(value);
+      }, this),
+      onLabelSelect: jQuery.proxy(function ($selectedLabels) {        
+        this.selectedItem.emit($selectedLabels.innerText);
       }, this),
       apiSettings: {
         url: `${this.url}/{query}`,
@@ -57,7 +66,7 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
               value: item.value,
               name: item.name
             });
-          });          
+          });
           return response;
         }
       }
@@ -76,6 +85,10 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
     this.isInitiating = true;
   }
 
+  itemClicked(item: any) {
+    console.log(item);
+  }
+
   get value(): any {
     return this.selectedItems;
   };
@@ -83,8 +96,10 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
   writeValue(value: any) {
     if (value !== undefined && value !== null) {
       this.selectedItems = value;
-      this.ngsmAppService.log("ngsm-select",`SelectedItems ${this.selectedItems}`);
+      this.ngsmAppService.log("ngsm-select", `SelectedItems ${this.selectedItems}`);
       if (!this.isInitiating) {
+        (<any>$(`#${this.id}.search.dropdown`)).dropdown('clear');
+
         this.changesInterval = Observable.interval(100).subscribe(() => this.init());
         this.isInitiating = true;
       }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, forwardRef, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { Subject, Observable } from "rxjs";
 import { NgsmAppService } from "../ngsm.app.service";
@@ -21,15 +21,17 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
   id: string;
 
   @Input()
-  defaultText: string;
+  defaultTexts: Subject<string> = new Subject<string>();
 
   @Input()
   url: string;
 
+  private defaultText: string = "Type to find";
   private selectedItem: any;
   private myInterval: any;
 
-  constructor(private ngsmAppService: NgsmAppService) { }
+  constructor(private ngsmAppService: NgsmAppService,
+    private chRef: ChangeDetectorRef) { }
 
   init() {
     this.ngsmAppService.log("ngsm-autocomplete", "init");
@@ -38,9 +40,11 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
       onChange: jQuery.proxy(function (value, text, $selectedItem) {
         this.propagateChange(value);
       }, this),
+      hideError: true,
       apiSettings: {
         url: `${this.url}/{query}`,
         method: 'get',
+        hideError: true,
         onResponse: function (results) {
           var response = {
             success: true,
@@ -53,9 +57,31 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
             });
           });
           return response;
+        },
+        onError: function (error) {
+          console.log(`ngsm-autocomplete: Error ${error}`);
         }
+      },
+      error: {
+        action: 'You called a dropdown action that was not defined',
+        alreadySetup: 'Once a select has been initialized behaviors must be called on the created ui dropdown',
+        labels: 'Allowing user additions currently requires the use of labels.',
+        method: 'The method you called is not defined.',
+        noTransition: 'This module requires ui transitions <https: github.com="" semantic-org="" ui-transition="">'
       }
     });
+
+    this.defaultTexts.subscribe(newDefaultText => {
+      this.ngsmAppService.log("ngsm-autocomplete", `New default text ${newDefaultText}`);
+      this.defaultText = newDefaultText;
+      (<any>$("#defaultText")).text(newDefaultText);
+      try {
+        this.chRef.detectChanges();
+      } catch (e) {
+
+      }
+    });
+
     if (this.myInterval !== undefined)
       this.myInterval.unsubscribe();
     sessionStorage.clear();
@@ -73,7 +99,7 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
   writeValue(value: any) {
     if (value !== undefined) {
       this.selectedItem = value;
-      this.ngsmAppService.log("ngsm-autocomplete", `SelectedItem ${this.selectedItem}`);
+      this.ngsmAppService.log("ngsm-autocomplete", `SelectedItem ${this.selectedItem}, DefaultText: ${this.defaultText}`);
     }
   }
 

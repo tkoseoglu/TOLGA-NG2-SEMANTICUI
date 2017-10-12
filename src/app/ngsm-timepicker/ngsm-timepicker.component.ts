@@ -41,7 +41,10 @@ export class NgsmTimepickerComponent implements OnInit, ControlValueAccessor {
 
   writeValue(value: any) {
     if (value !== undefined) {
-      this.innerValue = value;
+      this.ngsmAppService.log("ngsm-timepicker writeValue", value);
+      var dateValue = moment(value);
+      var innerValue = `${dateValue.format("HH:mm A")}`;
+      this.innerValue = innerValue;
     }
   }
 
