@@ -26,12 +26,23 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
   @Input()
   url: string;
 
+  @Input()
+  isRequired: boolean = false;
+
   private defaultText: string = "Type to find";
   private selectedItem: any;
   private myInterval: any;
 
   constructor(private ngsmAppService: NgsmAppService,
     private chRef: ChangeDetectorRef) { }
+
+
+  getClassNames() {   
+    if (this.isRequired && !this.defaultText)
+      return "invalid";
+    else if (this.isRequired && this.defaultText)
+      return "valid";    
+  }
 
   init() {
     this.ngsmAppService.log("ngsm-autocomplete", "init");

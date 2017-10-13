@@ -5,3 +5,11 @@
 .active {
     color: black !important;
 }
+
+.valid {
+    border-left: 5px solid #42A948 !important;
+}
+
+.invalid {
+    border-left: 5px solid #a94442 !important;
+}
