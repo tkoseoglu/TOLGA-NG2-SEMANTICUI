@@ -64,7 +64,7 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
           $.each(results, function (index, item) {
             response.results.push({
               value: item.id,
-              name: item.fullName
+              name: item.name
             });
           });
           return response;

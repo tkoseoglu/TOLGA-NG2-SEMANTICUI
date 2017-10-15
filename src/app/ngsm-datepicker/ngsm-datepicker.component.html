@@ -1,5 +1,6 @@
-<div class="ui calendar"
-    id="{{id}}">
+<div id="{{id}}"
+    class="ui calendar"
+    [ngClass]="getClassNames()">
     <div class="ui input left icon">
         <i class="calendar icon"></i>
         <input [(ngModel)]="innerValue"

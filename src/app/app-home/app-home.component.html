@@ -40,6 +40,15 @@
             <i class="large github middle aligned icon"></i>
             <div class="content">
                 <a class="header"
+                    (click)="scrollTo('tagSelect')"
+                    target="_self">ngsm-tag-select</a>
+                <div class="description">Tagging</div>
+            </div>
+        </div>
+        <div class="item">
+            <i class="large github middle aligned icon"></i>
+            <div class="content">
+                <a class="header"
                     (click)="scrollTo('datepicker')"
                     target="_self">ngsm-datepicker</a>
                 <div class="description">Date picker control for input forms</div>
@@ -141,7 +150,7 @@
         <form [formGroup]="ngsmAutocompleteForm">
             <ngsm-autocomplete id="myAutocomplete"
                 formControlName="selectedStaffId"
-                [defaultText]="currentStaffName"
+                [defaultTexts]="ngsmAutocompleteUrlDefaultText"
                 [url]="ngsmAutocompleteUrl"></ngsm-autocomplete>
         </form>
         <br>
@@ -151,6 +160,28 @@
         <h3>Usage</h3>
         <div>
             <div [innerText]="ngsmAutocompleteUsage"></div>
+        </div>
+    </div>
+    <div class="ui segment">
+        <div id="tagSelect"
+            class="ui ribbon label red">
+            <h2>ngsm-tag-select</h2>
+        </div>
+        <h3>Options</h3>
+        <br>
+        <form [formGroup]="ngsmTagSelectForm">
+            <ngsm-tag-select id="myTagSelect"
+                formControlName="tags"
+                [defaultTexts]="ngsmTagSelectDefaultText"
+                [url]="ngsmTagSelectRemoteUrl"></ngsm-tag-select>
+        </form>
+        <br>
+        <div>
+            {{ngsmTagSelectForm.value|json}}
+        </div>
+        <h3>Usage</h3>
+        <div>
+            <div [innerText]="ngsmTagSelectUsage"></div>
         </div>
     </div>
     <div class="ui segment">

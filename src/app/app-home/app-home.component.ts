@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Subject, Observable } from "rxjs";
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { User } from '../app-models/user';
@@ -20,17 +20,22 @@ export class AppHomeComponent implements OnInit {
   //Multi-Select
   ngsmSelectForm: FormGroup;
   ngsmMultiselectSelectedItems = [];
-  ngsmMultiselectUrl: string = "http://localhost:50198/api/util/autocompleteKeyword";
+  ngsmMultiselectUrl: string = "http://localhost:49676/api/util/autocompleteStaff";
   ngsmSelectUsage: string = "<ngsm-select id=\"\" formControlName=\"\" url=\"\" selectedItems=\"\" defaultText=\"\"></ngsm-select>";
 
   //Autocomplete
   ngsmAutocompleteForm: FormGroup;
   ngsmAutocompleteUsage: string = " <ngsm-autocomplete id=\"\" formControlName=\"\" url=\"\" defaultText=\"\"></ngsm-autocomplete>";
   myAutocomplete: string = "staffAutocomplete";
-  ngsmAutocompleteUrl: string = "http://localhost:50198/api/util/autocompleteStaff";
-  currentStaff: any;
-  currentStaffName: string = "";
+  ngsmAutocompleteUrl: string = "http://localhost:49676/api/util/autocompleteStaff";
+  ngsmAutocompleteDefaultText = new EventEmitter<string>();
 
+  //TagSelect
+  ngsmTagSelectForm: FormGroup;
+  myTagSelect: string = "myTagSelect";
+  ngsmTagSelectRemoteUrl: string = "http://localhost:49676//api/util/autocompleteAdGroup";
+  ngsmTagSelectUsage: string = "Usage...";
+  ngsmTagSelectDefaultText= new EventEmitter<string>();
   //Datepicker
   ngsmDatepickerForm: FormGroup;
   ngsmDatepickerSelectedDate = moment().format("MMMM DD, YYYY");
@@ -192,12 +197,13 @@ export class AppHomeComponent implements OnInit {
 
     this.ngsmSelectForm.controls["selectedStaffIds"].setValue(selectedIds);
 
-    this.currentStaff = {
-      value: 305,
-      name: "Tolga Koseoglu"
-    };
-    this.currentStaffName = "Tolga K.";
-    this.ngsmAutocompleteForm.controls["selectedStaffId"].setValue(this.currentStaff.value);
+    
+    var self = this;
+    setTimeout(function () {
+      self.ngsmAutocompleteDefaultText.emit("Type to find Staff");     
+      self.ngsmTagSelectDefaultText.emit("Type to find tags");
+    }, 250);
+
 
     this.mockInterval.unsubscribe();
   }
@@ -210,6 +216,9 @@ export class AppHomeComponent implements OnInit {
     });
     this.ngsmAutocompleteForm = this.formBuilder.group({
       selectedStaffId: []
+    });
+    this.ngsmTagSelectForm = this.formBuilder.group({
+      tags: []
     });
     this.ngsmDatepickerForm = this.formBuilder.group({
       myDate: [this.ngsmDatepickerSelectedDate]

@@ -1,0 +1,15 @@
+<div id="{{id}}"
+    class="ui multiple selection fluid search dropdown">
+    <input name="myMultiSelect"
+        type="hidden"
+        [value]="innerValueString">
+    <i class="dropdown icon"></i>
+    <div id="defaultText"
+        class="default text">{{defaultText}}</div>
+    <div class="menu"
+        *ngIf="innerValue">
+        <div class="item"
+            *ngFor="let item of innerValue"
+            [attr.data-value]="item.value">{{item.name}}</div>
+    </div>
+</div>

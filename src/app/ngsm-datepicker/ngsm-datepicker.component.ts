@@ -22,15 +22,25 @@ export class NgsmDatepickerComponent implements OnInit, ControlValueAccessor {
   @Input()
   hint: string;
 
+  @Input()
+  isRequired: boolean = false;
+
   private innerValue: string;
 
   constructor(private ngsmAppService: NgsmAppService) { }
+
+  getClassNames() {
+    if (this.isRequired && !this.innerValue)
+      return "invalid";
+    else if (this.isRequired && this.innerValue)
+      return "valid";
+  }
 
   ngOnInit() {
     (<any>$('#' + this.id)).calendar({
       type: 'date',
       onChange: jQuery.proxy(function (value) {
-        this.ngsmAppService.log("ngsm-datepicker", value);  
+        this.ngsmAppService.log("ngsm-datepicker", value);
         this.propagateChange(value);
       }, this)
     });

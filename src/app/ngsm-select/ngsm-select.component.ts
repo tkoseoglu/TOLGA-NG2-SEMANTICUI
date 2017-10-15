@@ -49,8 +49,9 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
       onChange: jQuery.proxy(function (value, text, $selectedItem) {
         this.propagateChange(value);
       }, this),
-      onLabelSelect: jQuery.proxy(function ($selectedLabels) {        
-        this.selectedItem.emit($selectedLabels.innerText);
+      onLabelSelect: jQuery.proxy(function ($selectedLabels) {
+        if ($selectedLabels)
+          this.selectedItem.emit($selectedLabels.innerText);
       }, this),
       apiSettings: {
         url: `${this.url}/{query}`,
@@ -63,7 +64,7 @@ export class NgsmSelectComponent implements OnInit, ControlValueAccessor {
           };
           $.each(results, function (index, item) {
             response.results.push({
-              value: item.value,
+              value: item.id,
               name: item.name
             });
           });
