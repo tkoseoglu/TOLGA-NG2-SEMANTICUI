@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, forwardRef, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { Subject, Observable } from "rxjs";
+import { Subject, Observable, Subscription } from "rxjs";
 import { NgsmAppService } from "../ngsm.app.service";
 
 @Component({
@@ -29,30 +29,50 @@ export class NgsmTagSelectComponent implements OnInit {
   @Input()
   defaultTexts: Subject<string> = new Subject<string>();
 
+  @Input()
+  isRequired: boolean = false;
+
   @Output()
   selectedItem: EventEmitter<any> = new EventEmitter<any>();
 
+  private isValidClass: string = "";
   private defaultText: string = "Type to find";
   private innerValue: any;
   private innerValueString: string = "";
+  private defaultTextsSub: Subscription;
 
   constructor(private ngsmAppService: NgsmAppService,
     private chRef: ChangeDetectorRef) { }
 
 
-  initDropdown() {
+  setIsValidClass(selectedItem) {
+    if (this.isRequired && !selectedItem)
+      this.isValidClass = "invalid";
+    else if (this.isRequired && selectedItem)
+      this.isValidClass = "valid";
+  }
+
+  init() {
     this.clear();
+    this.ngsmAppService.log("ngsm-tag-select", "init");
+    this.setIsValidClass("");
+
     var self = this;
     setTimeout(function () {
       (<any>$(`#${self.id}.search.dropdown`)).dropdown({
         minCharacters: 1,
         allowAdditions: self.allowAdditions,
         onChange: jQuery.proxy(function (value, text, $selectedItem) {
+          self.ngsmAppService.log("ngsm-tag-select: value", value);
+          self.setIsValidClass(value);
           self.propagateChange(value);
         }, self),
         onLabelSelect: jQuery.proxy(function ($selectedLabels) {
-          if (!$selectedLabels)
+          if (!$selectedLabels) {
+            self.ngsmAppService.log("ngsm-tag-select: selectedLabels", $selectedLabels.innerText);
             self.selectedItem.emit($selectedLabels.innerText);
+          }
+
         }, self),
         apiSettings: {
           url: `${self.url}/{query}`,
@@ -75,24 +95,28 @@ export class NgsmTagSelectComponent implements OnInit {
       });
     }, 250);
 
-    this.defaultTexts.subscribe(newDefaultText => {
-      this.ngsmAppService.log("ngsm-tag-select", `New default text ${newDefaultText}`);
-      this.defaultText = newDefaultText;
-      (<any>$("#defaultText")).text(newDefaultText);
-      try {
-        this.chRef.detectChanges();
-      } catch (e) {
+    if (this.defaultTexts) {
+      this.defaultTexts.subscribe(newDefaultText => {
+        this.ngsmAppService.log("ngsm-tag-select", `New default text ${newDefaultText}`);
+        this.defaultText = newDefaultText;
+        (<any>$("#defaultText")).text(newDefaultText);
+        try {
+          this.chRef.detectChanges();
+        } catch (e) {
 
-      }
-    });
+        }
+      });
+    }
+
 
   }
 
   ngOnInit() {
-    this.initDropdown();
+    this.init();
   }
 
   get value(): any {
+    console.log(this.innerValue);
     return this.innerValue;
   };
 
@@ -103,12 +127,13 @@ export class NgsmTagSelectComponent implements OnInit {
         this.innerValueString = this.innerValue.map(function (a) {
           return a.value.toString();
         }).join();
-        this.initDropdown();
+        this.init();
       }
     }
   }
 
   clear() {
+    this.ngsmAppService.log("ngsm-tag-select", "clear");
     (<any>$(`#${this.id}.search.dropdown`)).dropdown('clear');
   }
 
@@ -118,6 +143,10 @@ export class NgsmTagSelectComponent implements OnInit {
 
   registerOnChange(fn) {
     this.propagateChange = fn;
+  }
+
+  ngOnDestroy() {
+
   }
 
 

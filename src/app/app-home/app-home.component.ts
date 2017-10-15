@@ -36,6 +36,7 @@ export class AppHomeComponent implements OnInit {
   ngsmTagSelectRemoteUrl: string = "http://localhost:49676//api/util/autocompleteAdGroup";
   ngsmTagSelectUsage: string = "Usage...";
   ngsmTagSelectDefaultText= new EventEmitter<string>();
+  
   //Datepicker
   ngsmDatepickerForm: FormGroup;
   ngsmDatepickerSelectedDate = moment().format("MMMM DD, YYYY");
@@ -201,7 +202,7 @@ export class AppHomeComponent implements OnInit {
     var self = this;
     setTimeout(function () {
       self.ngsmAutocompleteDefaultText.emit("Type to find Staff");     
-      self.ngsmTagSelectDefaultText.emit("Type to find tags");
+      self.ngsmTagSelectDefaultText.emit("Type to find Tags");
     }, 250);
 
 

@@ -1,5 +1,6 @@
 <div id="{{id}}"
-    class="ui multiple selection fluid search dropdown">
+    class="ui multiple selection fluid search dropdown"
+    [ngClass]="isValidClass">
     <input name="myMultiSelect"
         type="hidden"
         [value]="innerValueString">

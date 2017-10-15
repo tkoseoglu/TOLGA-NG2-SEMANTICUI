@@ -150,8 +150,9 @@
         <form [formGroup]="ngsmAutocompleteForm">
             <ngsm-autocomplete id="myAutocomplete"
                 formControlName="selectedStaffId"
-                [defaultTexts]="ngsmAutocompleteUrlDefaultText"
-                [url]="ngsmAutocompleteUrl"></ngsm-autocomplete>
+                [defaultTexts]="ngsmAutocompleteDefaultText"
+                [url]="ngsmAutocompleteUrl"
+                [isRequired]="true"></ngsm-autocomplete>
         </form>
         <br>
         <div>
@@ -173,7 +174,8 @@
             <ngsm-tag-select id="myTagSelect"
                 formControlName="tags"
                 [defaultTexts]="ngsmTagSelectDefaultText"
-                [url]="ngsmTagSelectRemoteUrl"></ngsm-tag-select>
+                [url]="ngsmTagSelectRemoteUrl"
+                [isRequired]="true"></ngsm-tag-select>
         </form>
         <br>
         <div>

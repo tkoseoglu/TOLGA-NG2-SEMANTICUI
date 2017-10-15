@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, forwardRef, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { Subject, Observable } from "rxjs";
+import { Subject, Observable, Subscription } from "rxjs";
 import { NgsmAppService } from "../ngsm.app.service";
 
 @Component({
@@ -29,78 +29,84 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
   @Input()
   isRequired: boolean = false;
 
+  private isValidClass: string = "";
   private defaultText: string = "Type to find";
   private selectedItem: any;
-  private myInterval: any;
-
+  private defaultTextsSub: Subscription;
+  
   constructor(private ngsmAppService: NgsmAppService,
     private chRef: ChangeDetectorRef) { }
 
 
-  getClassNames() {   
-    if (this.isRequired && !this.defaultText)
-      return "invalid";
-    else if (this.isRequired && this.defaultText)
-      return "valid";    
+  setIsValidClass(selectedItem) {
+    if (this.isRequired && !selectedItem)
+      this.isValidClass = "invalid";
+    else if (this.isRequired && selectedItem)
+      this.isValidClass = "valid";
   }
 
-  init() {
+  init() {    
     this.ngsmAppService.log("ngsm-autocomplete", "init");
-    (<any>$(`#${this.id}.search.dropdown`)).dropdown({
-      minCharacters: 2,
-      onChange: jQuery.proxy(function (value, text, $selectedItem) {
-        this.propagateChange(value);
-      }, this),
-      hideError: true,
-      apiSettings: {
-        url: `${this.url}/{query}`,
-        method: 'get',
+    this.setIsValidClass("");
+
+    var self = this;
+    setTimeout(function () {
+      (<any>$(`#${self.id}.search.dropdown`)).dropdown({
+        minCharacters: 2,
+        onChange: jQuery.proxy(function (value, text, $selectedItem) {
+          self.setIsValidClass(value);
+          self.propagateChange(value);
+        }, self),
         hideError: true,
-        onResponse: function (results) {
-          var response = {
-            success: true,
-            results: []
-          };
-          $.each(results, function (index, item) {
-            response.results.push({
-              value: item.id,
-              name: item.name
+        apiSettings: {
+          url: `${self.url}/{query}`,
+          method: 'get',
+          hideError: true,
+          onResponse: function (results) {
+            var response = {
+              success: true,
+              results: []
+            };
+            $.each(results, function (index, item) {
+              response.results.push({
+                value: item.id,
+                name: item.name
+              });
             });
-          });
-          return response;
+            return response;
+          },
+          onError: function (error) {
+            this.ngsmAppService.error(`ngsm-autocomplete: Error ${error}`);
+          }
         },
-        onError: function (error) {
-          console.log(`ngsm-autocomplete: Error ${error}`);
+        error: {
+          action: 'You called a dropdown action that was not defined',
+          alreadySetup: 'Once a select has been initialized behaviors must be called on the created ui dropdown',
+          labels: 'Allowing user additions currently requires the use of labels.',
+          method: 'The method you called is not defined.',
+          noTransition: 'This module requires ui transitions <https: github.com="" semantic-org="" ui-transition="">'
         }
-      },
-      error: {
-        action: 'You called a dropdown action that was not defined',
-        alreadySetup: 'Once a select has been initialized behaviors must be called on the created ui dropdown',
-        labels: 'Allowing user additions currently requires the use of labels.',
-        method: 'The method you called is not defined.',
-        noTransition: 'This module requires ui transitions <https: github.com="" semantic-org="" ui-transition="">'
-      }
-    });
+      });
+    }, 500);
 
-    this.defaultTexts.subscribe(newDefaultText => {
-      this.ngsmAppService.log("ngsm-autocomplete", `New default text ${newDefaultText}`);
-      this.defaultText = newDefaultText;
-      (<any>$("#defaultText")).text(newDefaultText);
-      try {
-        this.chRef.detectChanges();
-      } catch (e) {
+    if (this.defaultTexts) {
+      this.defaultTextsSub = this.defaultTexts.subscribe(newDefaultText => {
+        this.ngsmAppService.log("ngsm-autocomplete", `New default text ${newDefaultText}`);
+        this.defaultText = newDefaultText;
+        (<any>$("#defaultText")).text(newDefaultText);
+        try {
+          this.chRef.detectChanges();
+        } catch (e) {
 
-      }
-    });
+        }
+      });
+    }
 
-    if (this.myInterval !== undefined)
-      this.myInterval.unsubscribe();
     sessionStorage.clear();
   }
 
   ngOnInit() {
-    this.ngsmAppService.log("ngsm-autocomplete", `id: ${this.id}, url: ${this.url}`);
-    this.myInterval = Observable.interval(100).subscribe(() => this.init());
+    this.init();
   }
 
   get value(): any {
@@ -120,6 +126,12 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
 
   registerOnChange(fn) {
     this.propagateChange = fn;
+  }
+
+  ngOnDestroy() {
+   
+    if (this.defaultTextsSub)
+      this.defaultTextsSub.unsubscribe();
   }
 
 
