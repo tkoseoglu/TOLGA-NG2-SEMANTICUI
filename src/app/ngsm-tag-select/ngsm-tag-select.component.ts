@@ -100,6 +100,7 @@ export class NgsmTagSelectComponent implements OnInit {
         this.ngsmAppService.log("ngsm-tag-select", `New default text ${newDefaultText}`);
         this.defaultText = newDefaultText;
         (<any>$("#defaultText")).text(newDefaultText);
+        this.setIsValidClass(newDefaultText);
         try {
           this.chRef.detectChanges();
         } catch (e) {

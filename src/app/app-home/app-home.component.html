@@ -83,24 +83,20 @@
         </div>
         <h3>Options</h3>
         <form>
-
             <div class="ui input">
                 <input type="text"
                     name="ngsmLoaderMessage"
                     [(ngModel)]="ngsmLoaderMessage">
             </div>
-
             <div class="ui checkbox">
                 <input type="checkbox"
                     name="ngsmLoaderIsInverted"
                     [(ngModel)]="ngsmLoaderIsInverted">
                 <label>Is Inverted</label>
             </div>
-
             <button type="button"
                 class="ui button"
                 (click)="toggleLoader()">Start/Stop</button>
-
         </form>
         <div style="min-height: 200px;"
             class="ui segment">

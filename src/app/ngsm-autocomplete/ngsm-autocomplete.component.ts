@@ -94,6 +94,7 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
         this.ngsmAppService.log("ngsm-autocomplete", `New default text ${newDefaultText}`);
         this.defaultText = newDefaultText;
         (<any>$("#defaultText")).text(newDefaultText);
+        this.setIsValidClass(newDefaultText);
         try {
           this.chRef.detectChanges();
         } catch (e) {
