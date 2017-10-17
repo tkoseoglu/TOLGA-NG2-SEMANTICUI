@@ -1,0 +1,23 @@
+<div id="timepicker"
+    class="ui ribbon label red">
+    <h2>ngsm-timepicker</h2>
+</div>
+<h3>Depends on semantic-ui-calendar</h3>
+<form>
+    <label for="">Options</label>
+</form>
+<br>
+<form #ngsmTimepickerForm="ngForm">
+    <ngsm-timepicker id="myTime"
+        name="myTime"
+        [(ngModel)]="myTime"
+        hint="Some Time"></ngsm-timepicker>
+</form>
+<br>
+<div>
+    {{ngsmTimepickerForm.value|json}}
+</div>
+<h3>Usage</h3>
+<div>
+    <div [innerText]="ngsmTimepickerUsage"></div>
+</div>

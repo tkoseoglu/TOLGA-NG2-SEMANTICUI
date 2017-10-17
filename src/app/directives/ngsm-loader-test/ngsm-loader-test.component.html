@@ -1,0 +1,32 @@
+<div id="loader"
+    class="ui ribbon label red">
+    <h2>ngsm-loader</h2>
+</div>
+<h3>Options</h3>
+<form #ngsmLoaderForm="ngForm">
+    <div class="ui input">
+        <input type="text"
+            name="ngsmLoaderMessage"
+            [(ngModel)]="ngsmLoaderMessage">
+    </div>
+    <div class="ui checkbox">
+        <input type="checkbox"
+            name="ngsmLoaderIsInverted"
+            [(ngModel)]="ngsmLoaderIsInverted">
+        <label>Is Inverted</label>
+    </div>
+    <button type="button"
+        class="ui button"
+        (click)="toggleLoader()">Start/Stop</button>
+</form>
+<div style="min-height: 200px;"
+    class="ui segment">
+    <ngsm-loader [showWhen]="ngsmLoaderShow"
+        [isInverted]="ngsmLoaderIsInverted"
+        [message]="ngsmLoaderMessage"></ngsm-loader>
+    <p></p>
+</div>
+<h3>Usage</h3>
+<div>
+    <div [innerText]="ngsmLoaderUsage"></div>
+</div>

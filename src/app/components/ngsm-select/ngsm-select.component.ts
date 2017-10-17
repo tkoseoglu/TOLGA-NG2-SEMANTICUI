@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, forwardRef, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { Subject, Observable } from "rxjs";
-import { NgsmAppService } from "../ngsm.app.service";
+import { NgsmAppService } from "../../ngsm.app.service";
 @Component({
   selector: 'ngsm-select',
   templateUrl: './ngsm-select.component.html',

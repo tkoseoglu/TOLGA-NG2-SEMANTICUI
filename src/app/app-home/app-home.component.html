@@ -75,197 +75,32 @@
     </div>
 </div>
 <div class="contentContainer">
-
+    <!-- loader -->
     <div class="ui segment">
-        <div id="loader"
-            class="ui ribbon label red">
-            <h2>ngsm-loader</h2>
-        </div>
-        <h3>Options</h3>
-        <form>
-            <div class="ui input">
-                <input type="text"
-                    name="ngsmLoaderMessage"
-                    [(ngModel)]="ngsmLoaderMessage">
-            </div>
-            <div class="ui checkbox">
-                <input type="checkbox"
-                    name="ngsmLoaderIsInverted"
-                    [(ngModel)]="ngsmLoaderIsInverted">
-                <label>Is Inverted</label>
-            </div>
-            <button type="button"
-                class="ui button"
-                (click)="toggleLoader()">Start/Stop</button>
-        </form>
-        <div style="min-height: 200px;"
-            class="ui segment">
-            <ngsm-loader [showWhen]="ngsmLoaderShow"
-                [isInverted]="ngsmLoaderIsInverted"
-                [message]="ngsmLoaderMessage"></ngsm-loader>
-            <p></p>
-        </div>
-        <h3>Usage</h3>
-        <div>
-            <div [innerText]="ngsmLoaderUsage"></div>
-        </div>
+        <ngsm-loader-test></ngsm-loader-test>
     </div>
+    <!-- ngsm-select -->
     <div class="ui segment">
-        <div id="select"
-            class="ui ribbon label red">
-            <h2>ngsm-select</h2>
-        </div>
-        <h3>Options</h3>
-        <form>
-
-        </form>
-        <br>
-        <form [formGroup]="ngsmSelectForm">
-            <ngsm-select id="mySelect"
-                [url]="ngsmMultiselectUrl"
-                defaultText="Some text..."
-                [previousSelectedItems]="ngsmMultiselectSelectedItems"
-                formControlName="selectedStaffIds"></ngsm-select>
-        </form>
-        <br>
-        <div>
-            Form Value: {{ngsmSelectForm.value|json}}
-        </div>
-        <h3>Usage</h3>
-        <div>
-            <div [innerText]="ngsmSelectUsage"></div>
-        </div>
+        <ngsm-select-test></ngsm-select-test>
     </div>
+    <!-- ngsm-autocomplete -->
     <div class="ui segment">
-        <div id="autocomplete"
-            class="ui ribbon label red">
-            <h2>ngsm-autocomplete</h2>
-        </div>
-        <h3>Options</h3>
-        <br>
-        <form [formGroup]="ngsmAutocompleteForm">
-            <ngsm-autocomplete id="myAutocomplete"
-                formControlName="selectedStaffId"
-                [defaultTexts]="ngsmAutocompleteDefaultText"
-                [url]="ngsmAutocompleteUrl"
-                [isRequired]="true"></ngsm-autocomplete>
-        </form>
-        <br>
-        <div>
-            {{ngsmAutocompleteForm.value|json}}
-        </div>
-        <h3>Usage</h3>
-        <div>
-            <div [innerText]="ngsmAutocompleteUsage"></div>
-        </div>
+        <ngsm-autocomplete-test></ngsm-autocomplete-test>
     </div>
+    <!-- ngsm-tag-select -->
     <div class="ui segment">
-        <div id="tagSelect"
-            class="ui ribbon label red">
-            <h2>ngsm-tag-select</h2>
-        </div>
-        <h3>Options</h3>
-        <br>
-        <form [formGroup]="ngsmTagSelectForm">
-            <ngsm-tag-select id="myTagSelect"
-                formControlName="tags"
-                [defaultTexts]="ngsmTagSelectDefaultText"
-                [url]="ngsmTagSelectRemoteUrl"
-                [isRequired]="true"></ngsm-tag-select>
-        </form>
-        <br>
-        <div>
-            {{ngsmTagSelectForm.value|json}}
-        </div>
-        <h3>Usage</h3>
-        <div>
-            <div [innerText]="ngsmTagSelectUsage"></div>
-        </div>
+        <ngsm-tag-select-test></ngsm-tag-select-test>
     </div>
+    <!-- ngsm-datepicker -->
     <div class="ui segment">
-        <div id="datepicker"
-            class="ui ribbon label red">
-            <h2>ngsm-datepicker</h2>
-        </div>
-        <h3>Depends on semantic-ui-calendar</h3>
-        <form>
-            <label for="">Options</label>
-
-        </form>
-        <br>
-        <form [formGroup]="ngsmDatepickerForm">
-            <ngsm-datepicker id="myDate"
-                formControlName="myDate"
-                hint="Some Date"></ngsm-datepicker>
-        </form>
-        <br>
-        <div>
-            {{ngsmDatepickerForm.value|json}}
-        </div>
-        <h3>Usage</h3>
-        <div>
-            <div [innerText]="ngsmDatepickerUsage"></div>
-        </div>
+        <ngsm-datepicker-test></ngsm-datepicker-test>
     </div>
+    <!-- ngsm-timepicker -->
     <div class="ui segment">
-        <div id="timepicker"
-            class="ui ribbon label red">
-            <h2>ngsm-timepicker</h2>
-        </div>
-        <h3>Depends on semantic-ui-calendar</h3>
-        <form>
-            <label for="">Options</label>
-
-        </form>
-        <br>
-        <form [formGroup]="ngsmTimepickerForm">
-            <ngsm-timepicker id="myTime"
-                formControlName="myTime"
-                hint="Some Time"></ngsm-timepicker>
-        </form>
-        <br>
-        <div>
-            {{ngsmTimepickerForm.value|json}}
-        </div>
-        <h3>Usage</h3>
-        <div>
-            <div [innerText]="ngsmTimepickerUsage"></div>
-        </div>
+        <ngsm-timepicker-test></ngsm-timepicker-test>
     </div>
+    <!-- ngsm-tablepager -->
     <div class="ui segment">
-        <div id="tablepager"
-            class="ui ribbon label red">
-            <h2>ngsm-tablepager</h2>
-        </div>
-        <table class="ui table">
-            <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>DOB</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let user of ngsmTablepagerUsers">
-                    <td>{{user.firstName}}</td>
-                    <td>{{user.lastName}}</td>
-                    <td>{{user.dob}}</td>
-                </tr>
-            </tbody>
-        </table>
-        <br>
-        <div class="ui grid">
-            <div class="right aligned column">
-                <ngsm-tablepager [totalNumberOfRecords]="ngsmTablepagerTotalNumberOfUsers"
-                    [selectedPageSize]="ngsmTablepagerConfig.pageSize"
-                    [selectedPage]="ngsmTablepagerConfig.page"
-                    (onPageSizeChange)="newPageSize($event)"
-                    (onPageChange)="newPage($event)"></ngsm-tablepager>
-            </div>
-        </div>
-        <h3>Usage</h3>
-        <div>
-            <div [innerText]="ngsmTablepagerUsage"></div>
-        </div>
+        <ngsm-tablepager-test></ngsm-tablepager-test>
     </div>
 </div>

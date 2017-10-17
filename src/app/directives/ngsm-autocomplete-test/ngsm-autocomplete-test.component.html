@@ -1,0 +1,22 @@
+<div id="autocomplete"
+    class="ui ribbon label red">
+    <h2>ngsm-autocomplete</h2>
+</div>
+<h3>Options</h3>
+<br>
+<form #ngsmAutocompleteForm="ngForm">
+    <ngsm-autocomplete id="myAutocomplete"
+        name="myAutocomplete"
+        [(ngModel)]="selectedStaffId"
+        [defaultTexts]="ngsmAutocompleteDefaultText"
+        [url]="ngsmAutocompleteUrl"
+        [isRequired]="true"></ngsm-autocomplete>
+</form>
+<br>
+<div>
+    {{ngsmAutocompleteForm.value|json}}
+</div>
+<h3>Usage</h3>
+<div>
+    <div [innerText]="ngsmAutocompleteUsage"></div>
+</div>

@@ -1,20 +1,19 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { NgsmAppService } from "../ngsm.app.service";
-
+import { NgsmAppService } from "../../ngsm.app.service";
 @Component({
-  selector: 'ngsm-datepicker',
-  templateUrl: './ngsm-datepicker.component.html',
-  styleUrls: ['./ngsm-datepicker.component.css'],
+  selector: 'ngsm-timepicker',
+  templateUrl: './ngsm-timepicker.component.html',
+  styleUrls: ['./ngsm-timepicker.component.css'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => NgsmDatepickerComponent),
+      useExisting: forwardRef(() => NgsmTimepickerComponent),
       multi: true
     }
   ]
 })
-export class NgsmDatepickerComponent implements OnInit, ControlValueAccessor {
+export class NgsmTimepickerComponent implements OnInit, ControlValueAccessor {
 
   @Input()
   id: string;
@@ -22,25 +21,15 @@ export class NgsmDatepickerComponent implements OnInit, ControlValueAccessor {
   @Input()
   hint: string;
 
-  @Input()
-  isRequired: boolean = false;
-
   private innerValue: string;
 
   constructor(private ngsmAppService: NgsmAppService) { }
 
-  getClassNames() {
-    if (this.isRequired && !this.innerValue)
-      return "invalid";
-    else if (this.isRequired && this.innerValue)
-      return "valid";
-  }
-
   ngOnInit() {
     (<any>$('#' + this.id)).calendar({
-      type: 'date',
+      type: 'time',
       onChange: jQuery.proxy(function (value) {
-        this.ngsmAppService.log("ngsm-datepicker", value);
+        this.ngsmAppService.log("ngsm-timepicker", value);
         this.propagateChange(value);
       }, this)
     });
@@ -52,7 +41,10 @@ export class NgsmDatepickerComponent implements OnInit, ControlValueAccessor {
 
   writeValue(value: any) {
     if (value !== undefined) {
-      this.innerValue = value;
+      this.ngsmAppService.log("ngsm-timepicker writeValue", value);
+      var dateValue = moment(value);
+      var innerValue = `${dateValue.format("HH:mm A")}`;
+      this.innerValue = innerValue;
     }
   }
 

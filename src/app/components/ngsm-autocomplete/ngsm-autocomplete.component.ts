@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, forwardRef, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { Subject, Observable, Subscription } from "rxjs";
-import { NgsmAppService } from "../ngsm.app.service";
+import { NgsmAppService } from "../../ngsm.app.service";
 
 @Component({
   selector: 'ngsm-autocomplete',
@@ -29,33 +29,39 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
   @Input()
   isRequired: boolean = false;
 
-  private isValidClass: string = "";
-  private defaultText: string = "Type to find";
-  private selectedItem: any;
-  private defaultTextsSub: Subscription;
-  
+  isValidClass: string = "";
+  defaultText: string = "Type to find";
+  selectedItem: any;
+  defaultTextsSub: Subscription;
+ 
   constructor(private ngsmAppService: NgsmAppService,
     private chRef: ChangeDetectorRef) { }
-
-
+ 
   setIsValidClass(selectedItem) {
-    if (this.isRequired && !selectedItem)
+    if (this.isRequired && (!selectedItem || selectedItem.indexOf("Type") >= 0))
       this.isValidClass = "invalid";
     else if (this.isRequired && selectedItem)
       this.isValidClass = "valid";
   }
 
-  init() {    
+  clear() {
+    this.selectedItem = null;
+    this.defaultTexts.next("Type to find");
+    this.setIsValidClass("");
+    this.propagateChange("");
+  }
+
+  init() {
     this.ngsmAppService.log("ngsm-autocomplete", "init");
     this.setIsValidClass("");
-
+    
     var self = this;
     setTimeout(function () {
       (<any>$(`#${self.id}.search.dropdown`)).dropdown({
         minCharacters: 2,
         onChange: jQuery.proxy(function (value, text, $selectedItem) {
           self.setIsValidClass(value);
-          self.propagateChange(value);
+          self.propagateChange(value);          
         }, self),
         hideError: true,
         apiSettings: {
@@ -87,14 +93,14 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
           noTransition: 'This module requires ui transitions <https: github.com="" semantic-org="" ui-transition="">'
         }
       });
-    }, 500);
+    }, 250);
 
     if (this.defaultTexts) {
       this.defaultTextsSub = this.defaultTexts.subscribe(newDefaultText => {
         this.ngsmAppService.log("ngsm-autocomplete", `New default text ${newDefaultText}`);
         this.defaultText = newDefaultText;
+        this.setIsValidClass(newDefaultText);        
         (<any>$("#defaultText")).text(newDefaultText);
-        this.setIsValidClass(newDefaultText);
         try {
           this.chRef.detectChanges();
         } catch (e) {
@@ -111,6 +117,7 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
   }
 
   get value(): any {
+    this.ngsmAppService.log("ngsm-autocomplete", `SelectedItem ${this.selectedItem}, DefaultText: ${this.defaultText}`);
     return this.selectedItem;
   };
 
@@ -130,7 +137,6 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
   }
 
   ngOnDestroy() {
-   
     if (this.defaultTextsSub)
       this.defaultTextsSub.unsubscribe();
   }

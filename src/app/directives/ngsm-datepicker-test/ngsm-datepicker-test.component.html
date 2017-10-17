@@ -1,0 +1,23 @@
+<div id="datepicker"
+    class="ui ribbon label red">
+    <h2>ngsm-datepicker</h2>
+</div>
+<h3>Depends on semantic-ui-calendar</h3>
+<form>
+    <label for="">Options</label>
+</form>
+<br>
+<form #ngsmDatepickerForm="ngForm">
+    <ngsm-datepicker id="myDate"
+        name="myDate"
+        [(ngModel)]="myDate"
+        hint="Some Date"></ngsm-datepicker>
+</form>
+<br>
+<div>
+    {{ngsmDatepickerForm.value|json}}
+</div>
+<h3>Usage</h3>
+<div>
+    <div [innerText]="ngsmDatepickerUsage"></div>
+</div>

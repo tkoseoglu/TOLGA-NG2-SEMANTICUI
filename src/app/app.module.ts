@@ -8,15 +8,23 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRouterModule } from './app-router/app-router.module';
 import { AppHomeComponent } from './app-home/app-home.component';
-import { NgsmLoaderComponent } from './ngsm-loader/ngsm-loader.component';
-import { NgsmSelectComponent } from './ngsm-select/ngsm-select.component';
-import { NgsmDatepickerComponent } from './ngsm-datepicker/ngsm-datepicker.component';
-import { NgsmTablepagerComponent } from './ngsm-tablepager/ngsm-tablepager.component';
-import { NgsmTimepickerComponent } from './ngsm-timepicker/ngsm-timepicker.component';
-import { NgsmAutocompleteComponent } from './ngsm-autocomplete/ngsm-autocomplete.component';
-import { NgsmTagSelectComponent } from './ngsm-tag-select/ngsm-tag-select.component';
+import { NgsmLoaderComponent } from './components/ngsm-loader/ngsm-loader.component';
+import { NgsmSelectComponent } from './components/ngsm-select/ngsm-select.component';
+import { NgsmDatepickerComponent } from './components/ngsm-datepicker/ngsm-datepicker.component';
+import { NgsmTablepagerComponent } from './components/ngsm-tablepager/ngsm-tablepager.component';
+import { NgsmTimepickerComponent } from './components/ngsm-timepicker/ngsm-timepicker.component';
+import { NgsmAutocompleteComponent } from './components/ngsm-autocomplete/ngsm-autocomplete.component';
+import { NgsmTagSelectComponent } from './components/ngsm-tag-select/ngsm-tag-select.component';
 
 import { NgsmAppService } from './ngsm.app.service';
+
+import { NgsmAutocompleteTestComponent } from './directives/ngsm-autocomplete-test/ngsm-autocomplete-test.component';
+import { NgsmTagSelectTestComponent } from './directives/ngsm-tag-select-test/ngsm-tag-select-test.component';
+import { NgsmDatepickerTestComponent } from './directives/ngsm-datepicker-test/ngsm-datepicker-test.component';
+import { NgsmTimepickerTestComponent } from './directives/ngsm-timepicker-test/ngsm-timepicker-test.component';
+import { NgsmLoaderTestComponent } from './directives/ngsm-loader-test/ngsm-loader-test.component';
+import { NgsmTablepagerTestComponent } from './directives/ngsm-tablepager-test/ngsm-tablepager-test.component';
+import { NgsmSelectTestComponent } from './directives/ngsm-select-test/ngsm-select-test.component';
 
 
 @NgModule({
@@ -29,7 +37,14 @@ import { NgsmAppService } from './ngsm.app.service';
     NgsmTablepagerComponent,
     NgsmTimepickerComponent,
     NgsmAutocompleteComponent,
-    NgsmTagSelectComponent
+    NgsmTagSelectComponent,
+    NgsmAutocompleteTestComponent,
+    NgsmTagSelectTestComponent,
+    NgsmDatepickerTestComponent,
+    NgsmTimepickerTestComponent,
+    NgsmLoaderTestComponent,
+    NgsmTablepagerTestComponent,
+    NgsmSelectTestComponent
   ],
   imports: [
     BrowserModule,

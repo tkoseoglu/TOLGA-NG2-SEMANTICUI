@@ -1,0 +1,22 @@
+<div id="select"
+    class="ui ribbon label red">
+    <h2>ngsm-select</h2>
+</div>
+<h3>Options</h3>
+<br>
+<form #ngsmSelectForm="ngForm">
+    <ngsm-select id="mySelect"
+        name="mySelect"
+        defaultText="Some text..."
+        [url]="ngsmMultiselectUrl"
+        [previousSelectedItems]="ngsmMultiselectSelectedItems"
+        [(ngModel)]="selectedStaffIds"></ngsm-select>
+</form>
+<br>
+<div>
+    Form Value: {{ngsmSelectForm.value|json}}
+</div>
+<h3>Usage</h3>
+<div>
+    <div [innerText]="ngsmSelectUsage"></div>
+</div>

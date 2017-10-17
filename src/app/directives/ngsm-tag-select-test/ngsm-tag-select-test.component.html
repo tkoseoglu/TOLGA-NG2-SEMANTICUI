@@ -1,0 +1,22 @@
+<div id="tagSelect"
+    class="ui ribbon label red">
+    <h2>ngsm-tag-select</h2>
+</div>
+<h3>Options</h3>
+<br>
+<form #ngsmTagSelectForm="ngForm">
+    <ngsm-tag-select id="myTagSelect"
+        name="myTagSelect"
+        [(ngModel)]="tags"
+        [defaultTexts]="ngsmTagSelectDefaultText"
+        [url]="ngsmTagSelectRemoteUrl"
+        [isRequired]="true"></ngsm-tag-select>
+</form>
+<br>
+<div>
+    {{ngsmTagSelectForm.value|json}}
+</div>
+<h3>Usage</h3>
+<div>
+    <div [innerText]="ngsmTagSelectUsage"></div>
+</div>

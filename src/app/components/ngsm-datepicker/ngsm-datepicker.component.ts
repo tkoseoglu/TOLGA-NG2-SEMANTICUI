@@ -1,19 +1,20 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { NgsmAppService } from "../ngsm.app.service";
+import { NgsmAppService } from "../../ngsm.app.service";
+
 @Component({
-  selector: 'ngsm-timepicker',
-  templateUrl: './ngsm-timepicker.component.html',
-  styleUrls: ['./ngsm-timepicker.component.css'],
+  selector: 'ngsm-datepicker',
+  templateUrl: './ngsm-datepicker.component.html',
+  styleUrls: ['./ngsm-datepicker.component.css'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => NgsmTimepickerComponent),
+      useExisting: forwardRef(() => NgsmDatepickerComponent),
       multi: true
     }
   ]
 })
-export class NgsmTimepickerComponent implements OnInit, ControlValueAccessor {
+export class NgsmDatepickerComponent implements OnInit, ControlValueAccessor {
 
   @Input()
   id: string;
@@ -21,15 +22,25 @@ export class NgsmTimepickerComponent implements OnInit, ControlValueAccessor {
   @Input()
   hint: string;
 
+  @Input()
+  isRequired: boolean = false;
+
   private innerValue: string;
 
   constructor(private ngsmAppService: NgsmAppService) { }
 
+  getClassNames() {
+    if (this.isRequired && !this.innerValue)
+      return "invalid";
+    else if (this.isRequired && this.innerValue)
+      return "valid";
+  }
+
   ngOnInit() {
     (<any>$('#' + this.id)).calendar({
-      type: 'time',
+      type: 'date',
       onChange: jQuery.proxy(function (value) {
-        this.ngsmAppService.log("ngsm-timepicker", value);
+        this.ngsmAppService.log("ngsm-datepicker", value);
         this.propagateChange(value);
       }, this)
     });
@@ -41,10 +52,7 @@ export class NgsmTimepickerComponent implements OnInit, ControlValueAccessor {
 
   writeValue(value: any) {
     if (value !== undefined) {
-      this.ngsmAppService.log("ngsm-timepicker writeValue", value);
-      var dateValue = moment(value);
-      var innerValue = `${dateValue.format("HH:mm A")}`;
-      this.innerValue = innerValue;
+      this.innerValue = value;
     }
   }
 
