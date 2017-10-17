@@ -202,7 +202,7 @@ export class AppHomeComponent implements OnInit {
     var self = this;
     setTimeout(function () {
       self.ngsmAutocompleteDefaultText.emit("Type to find Staff");     
-      self.ngsmTagSelectDefaultText.emit("Tolga Koseoglu");
+      self.ngsmTagSelectDefaultText.emit("Type to find Groups");
     }, 250);
 
 

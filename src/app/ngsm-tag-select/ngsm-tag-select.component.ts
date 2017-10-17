@@ -46,7 +46,7 @@ export class NgsmTagSelectComponent implements OnInit {
 
 
   setIsValidClass(selectedItem) {
-    if (this.isRequired && !selectedItem)
+    if (this.isRequired && (!selectedItem || selectedItem.indexOf("Type") >= 0))
       this.isValidClass = "invalid";
     else if (this.isRequired && selectedItem)
       this.isValidClass = "valid";
@@ -108,7 +108,6 @@ export class NgsmTagSelectComponent implements OnInit {
         }
       });
     }
-
 
   }
 
