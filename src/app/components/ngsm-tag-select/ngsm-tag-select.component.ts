@@ -68,7 +68,7 @@ export class NgsmTagSelectComponent implements OnInit {
           self.propagateChange(value);
         }, self),
         onLabelSelect: jQuery.proxy(function ($selectedLabels) {
-          if (!$selectedLabels) {
+          if ($selectedLabels) {
             self.ngsmAppService.log("ngsm-tag-select: selectedLabels", $selectedLabels.innerText);
             self.selectedItem.emit($selectedLabels.innerText);
           }
@@ -99,6 +99,7 @@ export class NgsmTagSelectComponent implements OnInit {
       this.defaultTexts.subscribe(newDefaultText => {
         this.ngsmAppService.log("ngsm-tag-select", `New default text ${newDefaultText}`);
         this.defaultText = newDefaultText;
+        this.clear();
         (<any>$("#defaultText")).text(newDefaultText);
         this.setIsValidClass(newDefaultText);
         try {
