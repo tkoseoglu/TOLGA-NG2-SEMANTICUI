@@ -8,22 +8,34 @@ import { NgsmAppService } from '../../ngsm.app.service';
 })
 export class NgsmTagSelectTestComponent implements OnInit {
 
-  myTagSelect: string = "myTagSelect";
-  ngsmTagSelectRemoteUrl: string = `http://${this.appService.webServerUrl}/api/util/autocompleteLocation`;
+  ngsmTagSelectRemoteUrl1: string = `http://${this.appService.webServerUrl}/api/util/autocompleteLocation`;
+  ngsmTagSelectRemoteUrl2: string = `http://${this.appService.webServerUrl}/api/util/autocompletePartner`;
   ngsmTagSelectUsage: string = "Usage...";
-  ngsmTagSelectDefaultText = new EventEmitter<string>();
+  ngsmTagSelectDefaultText1 = new EventEmitter<string>();
+  ngsmTagSelectDefaultText2 = new EventEmitter<string>();
 
-  tags = [];
+  locations = [];
+  partners = [];
 
   constructor(private appService: NgsmAppService) { }
 
-  getTags() {
-    this.tags = [{
+  getLocations() {
+    this.locations = [{
       id: 1,
-      text: 'New Mexico'
+      text: 'Location 1'
     }, {
       id: 2,
-      text: 'Texas'
+      text: 'Location 2'
+    }];
+  }
+
+  getPartners() {
+    this.partners = [{
+      id: 1,
+      text: 'Partner 1'
+    }, {
+      id: 2,
+      text: 'Partner 2'
     }];
   }
 
@@ -32,9 +44,11 @@ export class NgsmTagSelectTestComponent implements OnInit {
 
     let self = this;
     setTimeout(function () {
-      self.ngsmTagSelectDefaultText.emit("Type to find Locations");      
-      self.getTags();
-    }, 100);
+      //self.ngsmTagSelectDefaultText1.emit("Type to find Locations");
+      //self.ngsmTagSelectDefaultText2.emit("Type to find Partners");
+      self.getLocations();
+      self.getPartners();
+    }, 200);
 
     setTimeout(function () {
       //self.getTags();

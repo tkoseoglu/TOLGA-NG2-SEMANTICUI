@@ -33,10 +33,10 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
   defaultText: string = "Type to find";
   selectedItem: any;
   defaultTextsSub: Subscription;
- 
+
   constructor(private ngsmAppService: NgsmAppService,
     private chRef: ChangeDetectorRef) { }
- 
+
   setIsValidClass(selectedItem) {
     if (this.isRequired && (!selectedItem || selectedItem.indexOf("Type") >= 0))
       this.isValidClass = "invalid";
@@ -54,20 +54,22 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
   init() {
     this.ngsmAppService.log("ngsm-autocomplete", "init");
     this.setIsValidClass("");
-    
+
     var self = this;
     setTimeout(function () {
       (<any>$(`#${self.id}.search.dropdown`)).dropdown({
         minCharacters: 2,
         onChange: jQuery.proxy(function (value, text, $selectedItem) {
           self.setIsValidClass(value);
-          self.propagateChange(value);          
+          self.propagateChange(value);
         }, self),
         hideError: true,
+        saveRemoteData: false,
         apiSettings: {
           url: `${self.url}/{query}`,
           method: 'get',
           hideError: true,
+          saveRemoteData: false,
           onResponse: function (results) {
             var response = {
               success: true,
@@ -99,7 +101,7 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
       this.defaultTextsSub = this.defaultTexts.subscribe(newDefaultText => {
         this.ngsmAppService.log("ngsm-autocomplete", `New default text ${newDefaultText}`);
         this.defaultText = newDefaultText;
-        this.setIsValidClass(newDefaultText);        
+        this.setIsValidClass(newDefaultText);
         (<any>$("#defaultText")).text(newDefaultText);
         try {
           this.chRef.detectChanges();

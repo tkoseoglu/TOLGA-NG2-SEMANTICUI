@@ -67,10 +67,12 @@ export class NgsmTagSelectComponent implements OnChanges {
 
     var self = this;
     setTimeout(function () {
+      sessionStorage.clear();
       (<any>$(`#${self.id}.search.dropdown`)).dropdown({
         minCharacters: 1,
         keepOnScreen: false,
         showOnFocus: false,
+        saveRemoteData: false,
         allowAdditions: self.allowAdditions,
         onAdd: jQuery.proxy(function (selectedId, selectedText, $choice) {
           self.ngsmAppService.log("ngsm-tag-select: onAdd: selectedId", selectedId);
@@ -88,7 +90,7 @@ export class NgsmTagSelectComponent implements OnChanges {
         }, self),
         onRemove: jQuery.proxy(function (selectedId, selectedText, $choice) {
           self.ngsmAppService.log("ngsm-tag-select: onRemove: selectedId", selectedId);
-          self.ngsmAppService.log("ngsm-tag-select: onRemove: selectedValue", selectedText);
+          self.ngsmAppService.log("ngsm-tag-select: onRemove: selectedText", selectedText);
 
           let item = self.allSelections.filter(p => p.id === +selectedId)[0];
           if (item) {
@@ -111,8 +113,8 @@ export class NgsmTagSelectComponent implements OnChanges {
             };
             $.each(results, function (index, item) {
               response.results.push({
-                id: item.id,
-                text: item.name
+                value: item.id,
+                name: item.text
               });
             });
             return response;
