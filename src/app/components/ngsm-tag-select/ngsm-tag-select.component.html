@@ -4,12 +4,12 @@
     <input name="myMultiSelect"
         type="hidden"
         [value]="innerValueString">
-    <div id="defaultText"
+    <div id="{{defaultTextId}}"
         class="default text">{{defaultText}}</div>
     <div class="menu"
         *ngIf="innerValue">
         <div class="item"
             *ngFor="let item of innerValue"
-            [attr.data-value]="item.value">{{item.name}}</div>
+            [attr.data-value]="item.id">{{item.text}}</div>
     </div>
 </div>

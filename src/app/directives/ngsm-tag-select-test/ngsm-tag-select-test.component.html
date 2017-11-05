@@ -4,6 +4,7 @@
 </div>
 <h3>Options</h3>
 <br>
+
 <form #ngsmTagSelectForm="ngForm">
     <ngsm-tag-select id="myTagSelect"
         name="myTagSelect"
@@ -12,10 +13,12 @@
         [url]="ngsmTagSelectRemoteUrl"
         [isRequired]="true"></ngsm-tag-select>
 </form>
+
 <br>
 <div>
-    {{ngsmTagSelectForm.value|json}}
+    <pre>{{ngsmTagSelectForm.value|json}}</pre>
 </div>
+
 <h3>Usage</h3>
 <div>
     <div [innerText]="ngsmTagSelectUsage"></div>

@@ -9,18 +9,36 @@ import { NgsmAppService } from '../../ngsm.app.service';
 export class NgsmTagSelectTestComponent implements OnInit {
 
   myTagSelect: string = "myTagSelect";
-  ngsmTagSelectRemoteUrl: string = `http://${this.appService.webServerUrl}/api/util/autocompleteAdGroup`;
+  ngsmTagSelectRemoteUrl: string = `http://${this.appService.webServerUrl}/api/util/autocompleteLocation`;
   ngsmTagSelectUsage: string = "Usage...";
   ngsmTagSelectDefaultText = new EventEmitter<string>();
 
+  tags = [];
+
   constructor(private appService: NgsmAppService) { }
+
+  getTags() {
+    this.tags = [{
+      id: 1,
+      text: 'New Mexico'
+    }, {
+      id: 2,
+      text: 'Texas'
+    }];
+  }
 
   ngOnInit() {
 
-    var self = this;
-    setTimeout(function () {      
-      self.ngsmTagSelectDefaultText.emit("Type to find Groups");
-    }, 250);
+
+    let self = this;
+    setTimeout(function () {
+      self.ngsmTagSelectDefaultText.emit("Type to find Locations");      
+      self.getTags();
+    }, 100);
+
+    setTimeout(function () {
+      //self.getTags();
+    }, 200);
 
   }
 
