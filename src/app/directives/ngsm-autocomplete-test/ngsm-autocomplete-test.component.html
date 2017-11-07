@@ -8,6 +8,8 @@
     <ngsm-autocomplete [id]="'myAutocomplete'"
         name="myAutocomplete"
         [(ngModel)]="selectedStaffId"
+        [allowClear]="true"
+        [clearMessage]="'Clear this user'"
         [defaultTexts]="ngsmAutocompleteDefaultText"
         [url]="ngsmAutocompleteUrl"
         [isRequired]="false"></ngsm-autocomplete>

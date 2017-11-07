@@ -28,7 +28,10 @@ export class NgsmTagSelectComponent implements OnChanges {
 
   @Input()
   allowClear: boolean = false;
-  
+
+  @Input()
+  clearMessage: string = "Clear";
+
   @Input()
   isRequired: boolean = false;
 
@@ -68,7 +71,7 @@ export class NgsmTagSelectComponent implements OnChanges {
   }
 
   init() {
-    this.defaultTextId = `${this.id}-defaultText`;    
+    this.defaultTextId = `${this.id}-defaultText`;
     this.ngsmAppService.log("ngsm-tag-select", `init: id: ${this.id}, url ${this.url}`);
     this.setIsValidClass();
 
@@ -106,7 +109,7 @@ export class NgsmTagSelectComponent implements OnChanges {
           url: `${self.url}/{query}`,
           method: 'get',
           saveRemoteData: false,
-          onResponse: function (results) {           
+          onResponse: function (results) {
             var response = {
               success: true,
               results: []

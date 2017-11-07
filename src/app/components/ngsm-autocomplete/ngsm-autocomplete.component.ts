@@ -21,6 +21,12 @@ export class NgsmAutocompleteComponent implements OnChanges, ControlValueAccesso
   id: string;
 
   @Input()
+  allowClear: boolean = false;
+
+  @Input()
+  clearMessage: string = "Clear";
+
+  @Input()
   defaultTexts: Subject<string> = new Subject<string>();
 
   @Input()
@@ -39,7 +45,7 @@ export class NgsmAutocompleteComponent implements OnChanges, ControlValueAccesso
   constructor(private ngsmAppService: NgsmAppService,
     private chRef: ChangeDetectorRef) { }
 
-  setIsValidClass(selectedItem) {
+  setIsValidClass(selectedItem) {    
     if (this.isRequired && (!selectedItem || selectedItem.indexOf("Type") >= 0))
       this.isValidClass = "invalid";
     else if (this.isRequired && selectedItem)
@@ -49,14 +55,13 @@ export class NgsmAutocompleteComponent implements OnChanges, ControlValueAccesso
   clear() {
     this.selectedItem = null;
     this.defaultTexts.next("Type to find");
+    (<any>$(`#${this.id}`)).dropdown('clear');
     this.setIsValidClass("");
     this.propagateChange("");
   }
 
   init() {
-
     this.defaultTextId = `${this.id}-defaultText`;
-
     this.ngsmAppService.log("ngsm-autocomplete", `init: id: ${this.id}, url ${this.url}`);
     this.setIsValidClass("");
 
@@ -66,6 +71,7 @@ export class NgsmAutocompleteComponent implements OnChanges, ControlValueAccesso
       (<any>$(`#${self.id}`)).dropdown({
         minCharacters: 2,
         onChange: jQuery.proxy(function (value, text, $selectedItem) {
+          self.selectedItem = value;
           self.setIsValidClass(value);
           self.propagateChange(value);
         }, self),
@@ -124,14 +130,14 @@ export class NgsmAutocompleteComponent implements OnChanges, ControlValueAccesso
       this.init();
   }
 
-  get value(): any {   
+  get value(): any {
     return this.selectedItem;
   };
 
   writeValue(value: any) {
     if (value !== undefined) {
       this.selectedItem = value;
-      this.ngsmAppService.log("ngsm-autocomplete", `writeValue: selectedItem: ${this.selectedItem}`);      
+      this.ngsmAppService.log("ngsm-autocomplete", `writeValue: selectedItem: ${this.selectedItem}`);
     }
   }
 

@@ -29,5 +29,6 @@
     }
     .contentContainer {
         left: 330px;
+        width: 800px;
     }
 }

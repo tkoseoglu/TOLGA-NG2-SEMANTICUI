@@ -1,21 +1,30 @@
-<div id="{{id}}"
-    class="ui multiple selection search dropdown"
-    [ngClass]="isValidClass">
-    <input name="myMultiSelect"
-        type="hidden"
-        [value]="innerValueString">
-    <div id="{{defaultTextId}}"
-        class="default text">{{defaultText}}</div>
-    <div class="menu"
-        *ngIf="innerValue">
-        <div class="item"
-            *ngFor="let item of innerValue"
-            [attr.data-value]="item.id">{{item.text}}</div>
+<form class="ui form"
+    novalidate>
+    <div class="two fields">
+        <div class="field">
+            <div id="{{id}}"
+                class="ui multiple fluid selection search dropdown"
+                [ngClass]="isValidClass">
+                <input name="myMultiSelect"
+                    type="hidden"
+                    [value]="innerValueString">
+                <div id="{{defaultTextId}}"
+                    class="default text">{{defaultText}}</div>
+                <div class="menu"
+                    *ngIf="innerValue">
+                    <div class="item"
+                        *ngFor="let item of innerValue"
+                        [attr.data-value]="item.id">{{item.text}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <button class="ui icon button"
+                (click)="clear()"
+                title="{{clearMessage}}"
+                *ngIf="allowClear && allSelections && allSelections.length > 0">
+                <i class="icon trash"></i>
+            </button>
+        </div>
     </div>
-</div>
-<button class="ui icon button"
-    (click)="clear()"
-    title="clear all tags"
-    *ngIf="allowClear && allSelections && allSelections.length > 0">
-    <i class="icon trash"></i>
-</button>
+</form>

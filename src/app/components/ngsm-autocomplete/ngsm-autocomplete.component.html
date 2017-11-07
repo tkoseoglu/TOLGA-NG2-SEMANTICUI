@@ -1,7 +1,23 @@
-<div id="{{id}}"
-    class="ui fluid selection search dropdown"
-    [ngClass]="isValidClass">
-    <div id="{{defaultTextId}}"
-        class="default text"
-        [ngClass]="{'active': defaultText.indexOf('Type') === -1}">{{defaultText}}</div>
-</div>
+<form class="ui form"
+    novalidate>
+    <div class="two fields">
+        <div class="field">
+            <div id="{{id}}"
+                class="ui fluid selection search dropdown"
+                [ngClass]="isValidClass">
+                <div id="{{defaultTextId}}"
+                    class="default text"
+                    [ngClass]="{'active': defaultText.indexOf('Type') === -1}">{{defaultText}}</div>
+            </div>
+        </div>
+        <div class="field">
+            <button class="ui icon button"
+                (click)="clear()"
+                title="{{clearMessage}}"
+                *ngIf="allowClear && selectedItem">
+                <i class="icon trash"></i>
+            </button>
+        </div>
+    </div>
+    <pre>{{selectedItem|json}}</pre>
+</form>

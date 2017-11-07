@@ -5,23 +5,21 @@
 <h3>Options</h3>
 <br>
 
-<form #ngsmTagSelectForm="ngForm">
-    <ngsm-tag-select [id]="'keywordPicker'"
-        name="keywordPicker"
-        [(ngModel)]="keywords"
-        [allowAdditions]="true"
-        [allowClear]="true"
-        [defaultTexts]="ngsmTagSelectDefaultText1"
-        [url]="ngsmTagSelectRemoteUrl1"
-        [isRequired]="true"></ngsm-tag-select>
-
-    <!-- <ngsm-tag-select id="partnerPicker"
-        name="partnerPicker"
-        [(ngModel)]="partners"
-        [allowAdditions]="true"
-        [defaultTexts]="ngsmTagSelectDefaultText2"
-        [url]="ngsmTagSelectRemoteUrl2"
-        [isRequired]="true"></ngsm-tag-select> -->
+<form #ngsmTagSelectForm="ngForm"
+    class="ui form"
+    novalidate>
+    <div class="field">
+        <label for="">Some Tags</label>
+        <ngsm-tag-select [id]="'keywordPicker'"
+            name="keywordPicker"
+            [(ngModel)]="keywords"
+            [allowAdditions]="true"
+            [allowClear]="true"
+            [defaultTexts]="ngsmTagSelectDefaultText1"
+            [url]="ngsmTagSelectRemoteUrl1"
+            [clearMessage]="'Clear this shit'"
+            [isRequired]="true"></ngsm-tag-select>
+    </div>
 </form>
 
 <br>
