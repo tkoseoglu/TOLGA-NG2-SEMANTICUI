@@ -15,6 +15,7 @@ import { NgsmTablepagerComponent } from './components/ngsm-tablepager/ngsm-table
 import { NgsmTimepickerComponent } from './components/ngsm-timepicker/ngsm-timepicker.component';
 import { NgsmAutocompleteComponent } from './components/ngsm-autocomplete/ngsm-autocomplete.component';
 import { NgsmTagSelectComponent } from './components/ngsm-tag-select/ngsm-tag-select.component';
+import { NgsmModalComponent } from './components/ngsm-modal/ngsm-modal.component';
 
 import { NgsmAppService } from './ngsm.app.service';
 
@@ -25,6 +26,7 @@ import { NgsmTimepickerTestComponent } from './directives/ngsm-timepicker-test/n
 import { NgsmLoaderTestComponent } from './directives/ngsm-loader-test/ngsm-loader-test.component';
 import { NgsmTablepagerTestComponent } from './directives/ngsm-tablepager-test/ngsm-tablepager-test.component';
 import { NgsmSelectTestComponent } from './directives/ngsm-select-test/ngsm-select-test.component';
+import { NgsmModalTestComponent } from './directives/ngsm-modal-test/ngsm-modal-test.component';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { NgsmSelectTestComponent } from './directives/ngsm-select-test/ngsm-sele
     NgsmTimepickerTestComponent,
     NgsmLoaderTestComponent,
     NgsmTablepagerTestComponent,
-    NgsmSelectTestComponent
+    NgsmSelectTestComponent,
+    NgsmModalComponent,    
+    NgsmModalTestComponent
   ],
   imports: [
     BrowserModule,

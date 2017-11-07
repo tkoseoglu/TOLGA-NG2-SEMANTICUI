@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class NgsmAppService {
 
-  //webServerUrl = "localhost:50199";
-  webServerUrl = "localhost:12345";
+  webServerUrl = "localhost:50199";
+  //webServerUrl = "localhost:12345";
 
   constructor() { }
 

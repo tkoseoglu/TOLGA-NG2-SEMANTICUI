@@ -5,18 +5,14 @@
 <h3>Options</h3>
 <br>
 <form #ngsmAutocompleteForm="ngForm">
-    <ngsm-autocomplete id="myAutocomplete"
+    <ngsm-autocomplete [id]="'myAutocomplete'"
         name="myAutocomplete"
         [(ngModel)]="selectedStaffId"
         [defaultTexts]="ngsmAutocompleteDefaultText"
         [url]="ngsmAutocompleteUrl"
-        [isRequired]="true"></ngsm-autocomplete>
+        [isRequired]="false"></ngsm-autocomplete>
 </form>
 <br>
 <div>
     {{ngsmAutocompleteForm.value|json}}
-</div>
-<h3>Usage</h3>
-<div>
-    <div [innerText]="ngsmAutocompleteUsage"></div>
 </div>

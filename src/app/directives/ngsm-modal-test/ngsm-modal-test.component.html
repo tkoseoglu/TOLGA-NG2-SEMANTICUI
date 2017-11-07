@@ -1,0 +1,24 @@
+<div id="loader"
+    class="ui ribbon label red">
+    <h2>ngsm-modal</h2>
+</div>
+<h3>Options</h3>
+<form #ngsmModalForm="ngForm">
+
+    <div>
+        ModalId: {{modalId}}
+    </div>
+    <div>
+        Show: {{showModal}}
+    </div>
+
+    <button type="button"
+        class="ui button"
+        (click)="toggleModal()">Toggle Modal</button>
+
+</form>
+
+<ngsm-modal [id]="modalId"
+    [show]="showModal"></ngsm-modal>
+
+<h3>Usage....</h3>

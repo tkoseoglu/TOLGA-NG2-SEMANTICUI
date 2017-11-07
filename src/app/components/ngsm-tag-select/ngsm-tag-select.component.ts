@@ -27,10 +27,13 @@ export class NgsmTagSelectComponent implements OnChanges {
   allowAdditions: boolean = false;
 
   @Input()
-  defaultTexts: Subject<string> = new Subject<string>();
-
+  allowClear: boolean = false;
+  
   @Input()
   isRequired: boolean = false;
+
+  @Input()
+  defaultTexts: Subject<string> = new Subject<string>();
 
   @Output()
   selectedItem: EventEmitter<any> = new EventEmitter<any>();
@@ -57,28 +60,28 @@ export class NgsmTagSelectComponent implements OnChanges {
       this.isValidClass = "valid";
   }
 
+  clear() {
+    if (this.id) {
+      this.ngsmAppService.log("ngsm-tag-select", `clear: id: ${this.id}`);
+      (<any>$(`#${this.id}`)).dropdown('clear');
+    }
+  }
+
   init() {
-
-    this.defaultTextId = `${this.id}-defaultText`;
-
-    this.clear();
+    this.defaultTextId = `${this.id}-defaultText`;    
     this.ngsmAppService.log("ngsm-tag-select", `init: id: ${this.id}, url ${this.url}`);
     this.setIsValidClass();
 
-    var self = this;
+    let self = this;
     setTimeout(function () {
       sessionStorage.clear();
-      (<any>$(`#${self.id}.search.dropdown`)).dropdown({
+      (<any>$(`#${self.id}`)).dropdown({
         minCharacters: 1,
-        keepOnScreen: false,
-        showOnFocus: false,
-        saveRemoteData: false,
         allowAdditions: self.allowAdditions,
         onAdd: jQuery.proxy(function (selectedId, selectedText, $choice) {
           self.ngsmAppService.log("ngsm-tag-select: onAdd: selectedId", selectedId);
           self.ngsmAppService.log("ngsm-tag-select: onAdd: selectedText", selectedText);
-
-          let item = self.allSelections.filter(p => p.id === selectedId)[0];
+          let item = self.allSelections.filter(p => p.text === selectedText)[0];
           if (!item) {
             self.allSelections.push({
               id: +selectedId,
@@ -87,18 +90,15 @@ export class NgsmTagSelectComponent implements OnChanges {
             self.setIsValidClass();
             self.propagateChange(self.allSelections);
           }
+          (<any>$(`#${self.id}`)).dropdown('hide');
         }, self),
         onRemove: jQuery.proxy(function (selectedId, selectedText, $choice) {
           self.ngsmAppService.log("ngsm-tag-select: onRemove: selectedId", selectedId);
           self.ngsmAppService.log("ngsm-tag-select: onRemove: selectedText", selectedText);
-
-          let item = self.allSelections.filter(p => p.id === +selectedId)[0];
-          if (item) {
-            let index = self.allSelections.indexOf(item);
-            if (index >= 0) {
-              self.allSelections.splice(index, 1);
-            }
-          }
+          if (selectedText)
+            self.allSelections = self.allSelections.filter(p => p.text !== selectedText);
+          else
+            self.allSelections = self.allSelections.filter(p => p.id !== +selectedId);
           self.setIsValidClass();
           self.propagateChange(self.allSelections);
         }, self),
@@ -106,7 +106,7 @@ export class NgsmTagSelectComponent implements OnChanges {
           url: `${self.url}/{query}`,
           method: 'get',
           saveRemoteData: false,
-          onResponse: function (results) {
+          onResponse: function (results) {           
             var response = {
               success: true,
               results: []
@@ -127,8 +127,7 @@ export class NgsmTagSelectComponent implements OnChanges {
       this.defaultTexts.subscribe(newDefaultText => {
         this.ngsmAppService.log("ngsm-tag-select", `defaultText: ${newDefaultText}, defaultTextId: ${this.defaultTextId}`);
         this.defaultText = newDefaultText;
-        //this.clear();
-        (<any>$(`#${this.id}-defaultText`)).text(newDefaultText);
+        (<any>$(`#${this.defaultTextId}`)).text(newDefaultText);
         this.setIsValidClass();
         try {
           this.chRef.detectChanges();
@@ -146,7 +145,6 @@ export class NgsmTagSelectComponent implements OnChanges {
   }
 
   get value(): any {
-    console.log(this.innerValue);
     return this.innerValue;
   };
 
@@ -161,13 +159,6 @@ export class NgsmTagSelectComponent implements OnChanges {
         }).join();
         this.init();
       }
-    }
-  }
-
-  clear() {
-    if (this.id) {
-      this.ngsmAppService.log("ngsm-tag-select", `clear: id: ${this.id}`);
-      (<any>$(`#${this.id}.search.dropdown`)).dropdown('clear');
     }
   }
 

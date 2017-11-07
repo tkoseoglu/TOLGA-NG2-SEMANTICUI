@@ -6,27 +6,25 @@
 <br>
 
 <form #ngsmTagSelectForm="ngForm">
-    <ngsm-tag-select id="locationPicker"
-        name="locationPicker"
-        [(ngModel)]="locations"
+    <ngsm-tag-select [id]="'keywordPicker'"
+        name="keywordPicker"
+        [(ngModel)]="keywords"
+        [allowAdditions]="true"
+        [allowClear]="true"
         [defaultTexts]="ngsmTagSelectDefaultText1"
         [url]="ngsmTagSelectRemoteUrl1"
         [isRequired]="true"></ngsm-tag-select>
 
-    <ngsm-tag-select id="partnerPicker"
+    <!-- <ngsm-tag-select id="partnerPicker"
         name="partnerPicker"
         [(ngModel)]="partners"
+        [allowAdditions]="true"
         [defaultTexts]="ngsmTagSelectDefaultText2"
         [url]="ngsmTagSelectRemoteUrl2"
-        [isRequired]="true"></ngsm-tag-select>
+        [isRequired]="true"></ngsm-tag-select> -->
 </form>
 
 <br>
 <div>
     <pre>{{ngsmTagSelectForm.value|json}}</pre>
-</div>
-
-<h3>Usage</h3>
-<div>
-    <div [innerText]="ngsmTagSelectUsage"></div>
 </div>

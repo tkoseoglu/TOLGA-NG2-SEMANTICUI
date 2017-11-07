@@ -1,5 +1,5 @@
 <div id="{{id}}"
-    class="ui multiple selection fluid search dropdown"
+    class="ui multiple selection search dropdown"
     [ngClass]="isValidClass">
     <input name="myMultiSelect"
         type="hidden"
@@ -13,6 +13,9 @@
             [attr.data-value]="item.id">{{item.text}}</div>
     </div>
 </div>
-
-<pre>{{innerValue|json}}</pre>
-<pre>{{innerValueString|json}}</pre>
+<button class="ui icon button"
+    (click)="clear()"
+    title="clear all tags"
+    *ngIf="allowClear && allSelections && allSelections.length > 0">
+    <i class="icon trash"></i>
+</button>

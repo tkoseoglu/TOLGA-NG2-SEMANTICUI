@@ -5,6 +5,7 @@ export * from './components/ngsm-timepicker/ngsm-timepicker.component';
 export * from './components/ngsm-tablepager/ngsm-tablepager.component';
 export * from './components/ngsm-autocomplete/ngsm-autocomplete.component';
 export * from './components/ngsm-tag-select/ngsm-tag-select.component';
+export * from './components/ngsm-modal/ngsm-modal.component';
 export * from './ngsm.app.service';
 export * from './app.component';
 export * from './app.module';

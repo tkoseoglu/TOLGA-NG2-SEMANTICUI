@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, forwardRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnChanges, Input, forwardRef, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { Subject, Observable, Subscription } from "rxjs";
 import { NgsmAppService } from "../../ngsm.app.service";
@@ -15,7 +15,7 @@ import { NgsmAppService } from "../../ngsm.app.service";
     }
   ]
 })
-export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
+export class NgsmAutocompleteComponent implements OnChanges, ControlValueAccessor {
 
   @Input()
   id: string;
@@ -31,8 +31,10 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
 
   isValidClass: string = "";
   defaultText: string = "Type to find";
+  defaultTextId: string = "";
   selectedItem: any;
   defaultTextsSub: Subscription;
+
 
   constructor(private ngsmAppService: NgsmAppService,
     private chRef: ChangeDetectorRef) { }
@@ -52,12 +54,16 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
   }
 
   init() {
-    this.ngsmAppService.log("ngsm-autocomplete", "init");
+
+    this.defaultTextId = `${this.id}-defaultText`;
+
+    this.ngsmAppService.log("ngsm-autocomplete", `init: id: ${this.id}, url ${this.url}`);
     this.setIsValidClass("");
 
-    var self = this;
+    let self = this;
     setTimeout(function () {
-      (<any>$(`#${self.id}.search.dropdown`)).dropdown({
+      sessionStorage.clear();
+      (<any>$(`#${self.id}`)).dropdown({
         minCharacters: 2,
         onChange: jQuery.proxy(function (value, text, $selectedItem) {
           self.setIsValidClass(value);
@@ -99,10 +105,10 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
 
     if (this.defaultTexts) {
       this.defaultTextsSub = this.defaultTexts.subscribe(newDefaultText => {
-        this.ngsmAppService.log("ngsm-autocomplete", `New default text ${newDefaultText}`);
+        this.ngsmAppService.log("ngsm-autocomplete", `defaultText: ${newDefaultText}, defaultTextId: ${this.defaultTextId}`);
         this.defaultText = newDefaultText;
         this.setIsValidClass(newDefaultText);
-        (<any>$("#defaultText")).text(newDefaultText);
+        (<any>$(`#${this.defaultTextId}`)).text(newDefaultText);
         try {
           this.chRef.detectChanges();
         } catch (e) {
@@ -111,22 +117,21 @@ export class NgsmAutocompleteComponent implements OnInit, ControlValueAccessor {
       });
     }
 
-    sessionStorage.clear();
   }
 
-  ngOnInit() {
-    this.init();
+  ngOnChanges() {
+    if (this.id && this.url)
+      this.init();
   }
 
-  get value(): any {
-    this.ngsmAppService.log("ngsm-autocomplete", `SelectedItem ${this.selectedItem}, DefaultText: ${this.defaultText}`);
+  get value(): any {   
     return this.selectedItem;
   };
 
   writeValue(value: any) {
     if (value !== undefined) {
       this.selectedItem = value;
-      this.ngsmAppService.log("ngsm-autocomplete", `SelectedItem ${this.selectedItem}, DefaultText: ${this.defaultText}`);
+      this.ngsmAppService.log("ngsm-autocomplete", `writeValue: selectedItem: ${this.selectedItem}`);      
     }
   }
 
