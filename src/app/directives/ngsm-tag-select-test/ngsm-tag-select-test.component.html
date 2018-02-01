@@ -13,16 +13,31 @@
         <ngsm-tag-select [id]="'keywordPicker'"
             name="keywordPicker"
             [(ngModel)]="keywords"
+            [defaultText]="'Type to find keywords'"
             [allowAdditions]="true"
             [allowClear]="true"
-            [defaultTexts]="ngsmTagSelectDefaultText1"
             [url]="ngsmTagSelectRemoteUrl1"
             [clearMessage]="'Clear this shit'"
             [isRequired]="true"></ngsm-tag-select>
     </div>
+    <div class="field">
+        <label for="">Some Tags</label>
+        <ngsm-tag-select [id]="'keywordPicker'"
+            name="keywordPicker"
+            [(ngModel)]="keywords"
+            [defaultText]="'Type to find keywords'"
+            [allowAdditions]="true"
+            [allowClear]="true"
+            [url]="ngsmTagSelectRemoteUrl1"
+            [clearMessage]="'Clear this shit'"
+            [isRequired]="true"></ngsm-tag-select>
+    </div>
+    <div class="field">
+        <button (click)="setKeywords(1)"
+            class="ui red button">Set Keyword List 1</button>
+    </div>
+    <div class="field">
+        <button (click)="setKeywords(2)"
+            class="ui blue button">Set Keyword List 2</button>
+    </div>
 </form>
-
-<br>
-<div>
-    <pre>{{ngsmTagSelectForm.value|json}}</pre>
-</div>

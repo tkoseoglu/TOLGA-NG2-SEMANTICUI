@@ -5,7 +5,7 @@
             <div id="{{id}}"
                 class="ui multiple fluid selection search dropdown"
                 [ngClass]="isValidClass">
-                <input name="myMultiSelect"
+                <input name="{{'innerValueString'-id}}"
                     type="hidden"
                     [value]="innerValueString">
                 <div id="{{defaultTextId}}"
@@ -28,3 +28,6 @@
         </div>
     </div>
 </form>
+<pre>{{defaultText|json}}</pre>
+<pre>{{innerValue|json}}</pre>
+<pre>{{innerValueString|json}}</pre>

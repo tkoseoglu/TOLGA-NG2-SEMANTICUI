@@ -14,34 +14,35 @@ export class NgsmTagSelectTestComponent implements OnInit {
   ngsmTagSelectDefaultText2 = new EventEmitter<string>();
 
   keywords = [];
-  
+
   constructor(private appService: NgsmAppService) { }
-
-  getKeywords() {
-    this.keywords = [{
-      id: 1,
-      text: 'Location 1'
-    }, {
-      id: 2,
-      text: 'Location 2'
-    }];
-  }
  
+  setKeywords(id: number) {
+    if (id === 1) {
+      this.keywords = [{
+        id: 111,
+        text: 'Home'
+      }, {
+        id: 222,
+        text: 'Auto'
+      }];
+    }
+    else {
+      this.keywords = [{
+        id: 333,
+        text: 'Work'
+      }, {
+        id: 444,
+        text: 'Money'
+      }];
+    }
+  }
+
   ngOnInit() {
-
-
     let self = this;
     setTimeout(function () {
-      self.ngsmTagSelectDefaultText1.emit("Type to find keywords");
-      //self.ngsmTagSelectDefaultText2.emit("Type to find Partners");
-      //self.getLocations();
-      //self.getPartners();
-    }, 200);
-
-    setTimeout(function () {
-      //self.getTags();
-    }, 200);
-
+      self.ngsmTagSelectDefaultText1.emit("Type to find keywords");      
+    }, 200);   
   }
 
 }

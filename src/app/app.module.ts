@@ -30,6 +30,13 @@ import { NgsmModalTestComponent } from './directives/ngsm-modal-test/ngsm-modal-
 
 
 @NgModule({
+  imports: [   
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule,
+    AppRouterModule    
+  ],
   declarations: [
     AppComponent,
     AppHomeComponent,
@@ -49,14 +56,7 @@ import { NgsmModalTestComponent } from './directives/ngsm-modal-test/ngsm-modal-
     NgsmSelectTestComponent,
     NgsmModalComponent,    
     NgsmModalTestComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpModule,
-    AppRouterModule    
-  ],
+  ], 
   providers: [NgsmAppService],
   bootstrap: [AppComponent]
 })
